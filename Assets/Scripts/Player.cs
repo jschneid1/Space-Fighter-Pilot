@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _boostSpeed = 8.5f;
     [SerializeField]
+    private float _thrusterSpeed = 2.5f;
+    [SerializeField]
     private GameObject _laserPrefab;
     [SerializeField]
     private float _fireRate = 0.15f;
@@ -93,6 +95,11 @@ public class Player : MonoBehaviour
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
 
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.9f, 4.1f), 0);
+
+        if(Input.GetKey(KeyCode.LeftShift))
+            {
+                transform.Translate(direction * _thrusterSpeed * Time.deltaTime);
+            }
 
         if (_boostActive is true)
         {
