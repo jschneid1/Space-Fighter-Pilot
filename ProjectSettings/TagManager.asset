@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Enemy_Weapon
   - Enemy Laser
+  - Shield
   layers:
   - Default
   - TransparentFX

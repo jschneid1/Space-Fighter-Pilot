@@ -19,30 +19,34 @@ public class Player : MonoBehaviour
     private float _canFire = -1f;
         
     private AudioSource _laserSource;
+
     [SerializeField]
     private int _lives = 3;
+    [SerializeField]
+    private int _score;
+
     [SerializeField]
     private GameObject _playerExplosion;
     [SerializeField]
     private GameObject _leftEngineFire, _rightEngineFire;
     [SerializeField]
-    private int _score;
+    private GameObject _tripleShotPrefab;
+
     private SpawnManager _spawnManager;
     private UIManager _uiManager;
-    [SerializeField]
-    private GameObject _tripleShotPrefab;
-    [SerializeField]
-    private SpriteRenderer _shieldVisualiser;
+    private ShieldBehaviour _shieldBehaviour;
+
     private bool _tripleShotActive = false;
     private bool _boostActive;
-    private bool _shieldActive = false;
-    private PolygonCollider2D _playerCollider;
-    private SpriteRenderer _playerSpriteRendderer;
     [SerializeField]
-    private SpriteRenderer _thruster;
-
-
-
+    private bool _shieldActive = false;
+    
+    private SpriteRenderer _playerSpriteRenderer;
+    [SerializeField]
+    private SpriteRenderer _thruster; 
+    
+    private PolygonCollider2D _playerCollider;
+  
     // Start is called before the first frame update
     void Start()
     {
@@ -51,28 +55,31 @@ public class Player : MonoBehaviour
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _laserSource = GameObject.Find("Laser_Shot").GetComponent<AudioSource>();
         _playerCollider = gameObject.GetComponent<PolygonCollider2D>();
-        _playerSpriteRendderer = gameObject.GetComponent<SpriteRenderer>();
+        _playerSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        _shieldBehaviour = gameObject.GetComponentInChildren<ShieldBehaviour>();
         
+        if (_shieldBehaviour is null)
+        {
+            Debug.LogError("The Shield Behaviour is NULL");
+        }
         
-
         if (_spawnManager is null)
         {
             Debug.LogError("The Spawn Manager is NULL");
         }
+
         if(_uiManager is null)
         {
             Debug.LogError("The UI Manager is NULL");
         }
 
-        _rightEngineFire.SetActive(false);
-        _leftEngineFire.SetActive(false);
-
-        
-        if(_laserSource == null)
+        if (_laserSource == null)
         {
             Debug.LogError("Laser audio source is null");
         }
-  
+
+        _rightEngineFire.SetActive(false);
+        _leftEngineFire.SetActive(false);
     }
 
     // Update is called once per frame
@@ -125,15 +132,11 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag is "Enemy_Weapon")
-        {
-            Damage();
-           /*if (other.transform.parent == true)
-            {
-                Destroy(other.transform.parent.gameObject);
-            }*/
-            Destroy(other.gameObject);
 
+        if (other.tag is "Enemy_Weapon" & _shieldActive is false)
+        {
+            Destroy(other.gameObject);
+            Damage();
         }
     }
 
@@ -156,44 +159,35 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
-        //if shield active
-        if (_shieldActive is true)
-        {
-            _shieldActive = false;
-            _shieldVisualiser.enabled = false;
-            
-            return;
-        }
-      
         _lives--;
-
-        if(_lives == 2)
+      
+        if (_lives == 2)
         {
             _rightEngineFire.SetActive(true);
         }
+
         else if(_lives == 1)
         {
             _leftEngineFire.SetActive(true);
-        }
-        
-
-        
+        }      
         
         else if(_lives == 0)
         {
-            _playerCollider.enabled = false;
-            _spawnManager.onPlayerDeath();
-            Instantiate(_playerExplosion, transform.position, Quaternion.identity);
-            _playerSpriteRendderer.enabled = false;
-            _rightEngineFire.SetActive(false);
-            _leftEngineFire.SetActive(false);
-            _thruster.enabled = false;
-
-            _uiManager.UILivesUpdate(_lives);
-
-
-
+            Death();
         }
+        _uiManager.UILivesUpdate(_lives);
+    }
+
+    private void Death()
+    {
+        _playerCollider.enabled = false;
+        _spawnManager.onPlayerDeath();
+        Instantiate(_playerExplosion, transform.position, Quaternion.identity);
+        _playerSpriteRenderer.enabled = false;
+        _rightEngineFire.SetActive(false);
+        _leftEngineFire.SetActive(false);
+        _thruster.enabled = false;
+        _uiManager.UILivesUpdate(_lives);
     }
 
     public void TripleShot()
@@ -221,15 +215,22 @@ public class Player : MonoBehaviour
     }
 
     public void Shield()
+       
     {
+        _shieldBehaviour.ShieldHits();
         _shieldActive = true;
-        _shieldVisualiser.enabled = true;
     }
     
     public void Score(int points)
     {
         _score += points;
         _uiManager.UIScoreUpdate(_score);
+    }
+
+    public void DeactivateShield()
+    {
+        _shieldActive = false;
+        
     }
 }
 

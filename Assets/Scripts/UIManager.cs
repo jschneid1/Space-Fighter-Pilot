@@ -7,11 +7,13 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
-    private Text _scoreText;
-    [SerializeField]
     private Image _LivesImg;
+
     [SerializeField]
     private Sprite[] _livesSprites;
+
+    [SerializeField]
+    private Text _scoreText;
     [SerializeField]
     private Text _gameOverText;
     [SerializeField]
@@ -19,8 +21,6 @@ public class UIManager : MonoBehaviour
 
     private GameManager _gameManager;
     private SpawnManager _spawnManager;
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -44,7 +44,6 @@ public class UIManager : MonoBehaviour
         _spawnManager.StartSpawning();
     }
 
-   
    public void UIScoreUpdate(int playerScore)
     {     
             _scoreText.text = "Score: " + playerScore.ToString();
@@ -54,7 +53,7 @@ public class UIManager : MonoBehaviour
     {
         _LivesImg.sprite = _livesSprites[currentLives];
 
-        if(currentLives == 0)
+        if(currentLives < 1)
         {
             GameOverSequence();
         }

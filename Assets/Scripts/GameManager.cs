@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            //QuitGame();
             Application.Quit();
         }
     }
@@ -26,9 +25,4 @@ public class GameManager : MonoBehaviour
     {
         _isGameOver = true;
     }
-
-    /*public void QuitGame()
-    {
-        UnityEditor.EditorApplication.isPlaying = false;
-    }*/
 }

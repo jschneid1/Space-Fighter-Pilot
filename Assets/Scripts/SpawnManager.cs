@@ -9,9 +9,10 @@ public class SpawnManager : MonoBehaviour
     private GameObject _enemy1Prefab;
     [SerializeField]
     private GameObject _enemyContainer;
-    private bool _stopSpawning = false;
     [SerializeField]
     private GameObject[] powerups;
+
+    private bool _stopSpawning = false;
     
     public void StartSpawning()
     {

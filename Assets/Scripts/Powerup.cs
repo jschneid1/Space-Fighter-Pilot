@@ -38,26 +38,9 @@ public class Powerup : MonoBehaviour
         {
                 Player player = other.transform.GetComponent<Player>();
                 if(player != null)
-            {
-                /*if (powerupID == 0)
-                {
-                    player.TripleShotPowerDownActive();
-                }
-                //elseif powerupID = 1
-                //speed power up
-                else if(powerupID == 1)
-                {
-                    Debug.Log("You picked up a speed power up");
-                }
-                //else  if powerupID = 2
-                //shields power up
-                else if(powerupID == 2)
-                {
-                    Debug.Log("You picked up a shield power up");
-                }*/
 
                 switch(powerupID)
-                {
+                    {
                     case 0:
                         player.TripleShot();
                         break;
@@ -65,16 +48,15 @@ public class Powerup : MonoBehaviour
                         player.Boost();
                         break;
                     case 2:
-                        player.Shield();
+                        player.Shield();                        
                         break;
                     default:
                         Debug.Log("Default value");
                         break;
-                }
-            }
+                    }
                 _powerUp.Play();
+
                 Destroy(this.gameObject);
-               
         }
     }
 }
