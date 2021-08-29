@@ -13,12 +13,8 @@ public class UIManager : MonoBehaviour
     private Sprite[] _livesSprites;
 
     [SerializeField]
-    private Text _scoreText;
-    [SerializeField]
-    private Text _gameOverText;
-    [SerializeField]
-    private Text _restartLevelText;
-
+    private Text _scoreText, _gameOverText, _restartLevelText, _ammoText, _ammoGLText, _ammoVLText, _ammoOutText;
+    
     private GameManager _gameManager;
     private SpawnManager _spawnManager;
 
@@ -29,6 +25,10 @@ public class UIManager : MonoBehaviour
         _scoreText.text = "Score: " + 0;
         _gameOverText.enabled = false;
         _restartLevelText.enabled = false;
+        _ammoText.text = "Ammo: " + 15;
+        _ammoGLText.enabled = false;
+        _ammoVLText.enabled = false;
+        _ammoOutText.enabled = false;
 
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
@@ -49,6 +49,29 @@ public class UIManager : MonoBehaviour
             _scoreText.text = "Score: " + playerScore.ToString();
     }
 
+    public void UIAmmoUpdate(int playerAmmo)
+    {
+        _ammoText.text = "Ammo: " + playerAmmo.ToString();
+
+        if (playerAmmo == 10)
+        {
+            _ammoGLText.enabled = true;
+            StartCoroutine(AmmoGLRoutine());
+        }
+
+        else if(playerAmmo == 5)
+        {
+            _ammoVLText.enabled = true;
+            StartCoroutine(AmmoVLRoutine());
+        }
+
+        else if(playerAmmo == 0)
+        {
+            _ammoOutText.enabled = true;
+            StartCoroutine(AmmoOutRoutine());
+        }
+    }
+
     public void UILivesUpdate(int currentLives)
     {
         _LivesImg.sprite = _livesSprites[currentLives];
@@ -57,7 +80,6 @@ public class UIManager : MonoBehaviour
         {
             GameOverSequence();
         }
-        
     }
 
     void GameOverSequence()
@@ -78,5 +100,22 @@ public class UIManager : MonoBehaviour
             _gameOverText.enabled = true;
         }
     }
-    
+
+    IEnumerator AmmoGLRoutine()
+    {
+        yield return new WaitForSeconds(1.5f);
+        _ammoGLText.enabled = false;
+    }
+
+    IEnumerator AmmoVLRoutine()
+    {
+        yield return new WaitForSeconds(1.5f);
+        _ammoVLText.enabled = false;
+    }
+
+    IEnumerator AmmoOutRoutine()
+    {
+        yield return new WaitForSeconds(2.0f);
+        _ammoOutText.enabled = false;
+    }
 }

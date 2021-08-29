@@ -54,18 +54,18 @@ public class ShieldBehaviour : MonoBehaviour
 
             if (_shieldHits == 1)
             {
-                if (other.tag is "Enemy")
-                    {
+                //if (other.tag is "Enemy")
+                    //{
                     _shieldHits--;
                     _shieldVisualiser.enabled = false;
                     _shieldCollider.enabled = false;
                     _player.DeactivateShield();
-                    }
+                    /*}
                 else
                     {
                     _shieldHits--;
                     _shieldVisualiser.enabled = false;
-                    }
+                    }*/
                 return;
              }
 

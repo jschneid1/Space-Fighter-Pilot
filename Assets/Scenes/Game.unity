@@ -1327,6 +1327,84 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shieldHits: 0
   _shieldVisualiser: {fileID: 891685693}
+--- !u!1 &978287078
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 978287079}
+  - component: {fileID: 978287081}
+  - component: {fileID: 978287080}
+  m_Layer: 10
+  m_Name: Ammo_Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &978287079
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978287078}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2092825576}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -8.299927, y: -60.19998}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 1, y: 1}
+--- !u!114 &978287080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978287078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.990566, g: 0.97654855, b: 0.97654855, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 22
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "Ammo: 15\t"
+--- !u!222 &978287081
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978287078}
+  m_CullTransparentMesh: 0
 --- !u!1 &1190960331
 GameObject:
   m_ObjectHideFlags: 0
@@ -1888,13 +1966,13 @@ MonoBehaviour:
   _canFire: 0.15
   _lives: 3
   _score: 0
+  _ammoCount: 0
   _playerExplosion: {fileID: 0}
   _leftEngineFire: {fileID: 0}
   _rightEngineFire: {fileID: 0}
   _tripleShotPrefab: {fileID: 0}
   _shieldActive: 0
   _thruster: {fileID: 0}
-  _playerCollider: {fileID: 0}
 --- !u!212 &1638011647
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2113,6 +2191,7 @@ RectTransform:
   - {fileID: 652342942}
   - {fileID: 116625270}
   - {fileID: 690498484}
+  - {fileID: 978287079}
   m_Father: {fileID: 1618674653}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2193,12 +2272,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1bddf3336a73b4884dcd3344af6f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scoreText: {fileID: 1251822413}
   _LivesImg: {fileID: 1190960333}
   _livesSprites:
   - {fileID: 21300000, guid: 099b6a81a5d1e404cb5daf71da65e7cb, type: 3}
   - {fileID: 21300000, guid: 4fd97e23ac5e91f42b7dabc33f434a6d, type: 3}
   - {fileID: 21300000, guid: 7e22e9088d988c941a0600aa7328ec50, type: 3}
   - {fileID: 21300000, guid: 3bec384db855deb4491b85d56ff33d81, type: 3}
+  _scoreText: {fileID: 1251822413}
   _gameOverText: {fileID: 652342943}
   _restartLevelText: {fileID: 116625271}
+  _ammoText: {fileID: 978287080}

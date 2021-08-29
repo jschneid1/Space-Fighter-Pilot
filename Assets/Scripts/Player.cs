@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    
     private float _speed = 3.5f;
     [SerializeField]
     private float _boostSpeed = 8.5f;
@@ -24,6 +23,8 @@ public class Player : MonoBehaviour
     private int _lives = 3;
     [SerializeField]
     private int _score;
+    [SerializeField]
+    private int _ammoCount = 15;
 
     [SerializeField]
     private GameObject _playerExplosion;
@@ -86,12 +87,16 @@ public class Player : MonoBehaviour
     void Update()
     {
         playerMovement();
-
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
+        if(_ammoCount > 0)
         {
-            _canFire = Time.time + _fireRate;
-            fireLaser();
-        }
+            if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
+            {
+                _canFire = Time.time + _fireRate;
+                fireLaser();
+                AmmoCount(1);
+            }
+            
+        }            
     }
 
     void playerMovement()
@@ -154,7 +159,6 @@ public class Player : MonoBehaviour
         }
 
         _laserSource.Play();
-        
     }
 
     public void Damage()
@@ -171,7 +175,7 @@ public class Player : MonoBehaviour
             _leftEngineFire.SetActive(true);
         }      
         
-        else if(_lives == 0)
+        else if(_lives < 1)
         {
             Death();
         }
@@ -231,6 +235,12 @@ public class Player : MonoBehaviour
     {
         _shieldActive = false;
         
+    }
+
+    public void AmmoCount(int ammo)
+    {
+        _ammoCount -= ammo;
+        _uiManager.UIAmmoUpdate(_ammoCount);
     }
 }
 
