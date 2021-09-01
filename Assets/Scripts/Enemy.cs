@@ -56,17 +56,12 @@ public class Enemy : MonoBehaviour
        
         if (other.tag is "Player")
         {
-            Player player = other.transform.GetComponent<Player>();
-            if(player != null)
-            {
-                player.Damage();
-            }
+            _player.Damage();
             Explosion();
         }
 
-        else if (other.tag is "Laser")
+       else if (other.tag is "Laser")
         {
-
             Destroy(other.gameObject);
             if (_player is null)
             {
@@ -108,6 +103,4 @@ public class Enemy : MonoBehaviour
         _speed = 0;
         Destroy(gameObject, 0.2f);
     }
-
-    
 }

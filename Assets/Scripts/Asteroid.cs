@@ -40,33 +40,23 @@ public class Asteroid : MonoBehaviour
         if (_asteroidRenderer == null)
         {
             Debug.LogError("Asteroid Render doesn't exist");
-
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        //rotate asteroid on z axis
         transform.Rotate(0, 0, -_asteroidRotSpeed * Time.deltaTime);
-
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag is "Laser")
         {
             Destroy(other.gameObject);
             Instantiate(_explosionPrefab, this.transform.position, Quaternion.identity);
-                /*_spawnManager.StartSpawning();
-                SceneManager.LoadScene(2);
-                _LivesImg.enabled = true;
-                _instructionText.enabled = false;
-                _scoreText.enabled = true;*/
-                _asteroidRenderer.enabled = false;
-            //Destroy(this.gameObject, 0.2f);
+            _asteroidRenderer.enabled = false;
             StartCoroutine(LoadGameScene());
-            
         }
 
        else if (other.tag is "Player")

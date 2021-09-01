@@ -95,7 +95,6 @@ public class Player : MonoBehaviour
                 fireLaser();
                 AmmoCount(1);
             }
-            
         }            
     }
 
@@ -137,7 +136,6 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-
         if (other.tag is "Enemy_Weapon" & _shieldActive is false)
         {
             Destroy(other.gameObject);
@@ -177,6 +175,7 @@ public class Player : MonoBehaviour
         
         else if(_lives < 1)
         {
+            _lives = 0;
             Death();
         }
         _uiManager.UILivesUpdate(_lives);
@@ -234,12 +233,17 @@ public class Player : MonoBehaviour
     public void DeactivateShield()
     {
         _shieldActive = false;
-        
     }
 
     public void AmmoCount(int ammo)
     {
         _ammoCount -= ammo;
+        _uiManager.UIAmmoUpdate(_ammoCount);
+    }
+
+    public void AmmoRefill()
+    {
+        _ammoCount = 15;
         _uiManager.UIAmmoUpdate(_ammoCount);
     }
 }

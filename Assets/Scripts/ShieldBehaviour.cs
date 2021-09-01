@@ -21,8 +21,10 @@ public class ShieldBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        
+        if(_shieldHits == 0)
+        {
+            _player.DeactivateShield();
+        }
     }
     public void ShieldHits()
     {
@@ -35,46 +37,29 @@ public class ShieldBehaviour : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
 
-        if (other.tag is "Enemy" | other.tag is "Enemy_Weapon")
+        if (other.tag is"Enemy" | other.tag is "Enemy_Weapon")
         {
             Destroy(other.gameObject);
             if (_shieldHits == 3)
-            {
+             
+                { 
                 _shieldHits--;
                 _shieldVisualiser.color = new Color(0.8679245f, 0.2684373f, 0.1678533f, 1);
-                return;
-            }
+                }
 
-            if (_shieldHits == 2)
-            {
+            else if (_shieldHits == 2)
+                {
                 _shieldHits--;
                 _shieldVisualiser.color = new Color(0.7830189f, 0.09972411f, 0.1211983f, 1);
-                return;
-            }
+                }
 
-            if (_shieldHits == 1)
-            {
-                //if (other.tag is "Enemy")
-                    //{
+            else if (_shieldHits == 1)
+                {
                     _shieldHits--;
                     _shieldVisualiser.enabled = false;
                     _shieldCollider.enabled = false;
-                    _player.DeactivateShield();
-                    /*}
-                else
-                    {
-                    _shieldHits--;
-                    _shieldVisualiser.enabled = false;
-                    }*/
-                return;
-             }
-
-            if (_shieldHits < 1)
-                {
-                _shieldCollider.enabled = false;
-                _player.DeactivateShield();
-                return;
-            }
+                    return;
+                } 
         }
     }
 }
