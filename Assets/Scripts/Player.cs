@@ -153,7 +153,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            Instantiate(_laserPrefab, transform.position, Quaternion.identity);
+            Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.898f, 0), Quaternion.identity);
         }
 
         _laserSource.Play();
@@ -245,6 +245,30 @@ public class Player : MonoBehaviour
     {
         _ammoCount = 15;
         _uiManager.UIAmmoUpdate(_ammoCount);
+    }
+
+    public void FirstAid()
+    {
+        if(_lives < 3)
+        {
+            _lives++;
+            if (_lives == 3)
+            {
+                _rightEngineFire.SetActive(false);
+            }
+
+            else if (_lives == 2)
+            {
+                _leftEngineFire.SetActive(false);
+            }
+        }
+
+        else
+        {
+            _lives = 3;
+        }
+        
+        _uiManager.UILivesUpdate(_lives);   
     }
 }
 

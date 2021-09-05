@@ -364,6 +364,7 @@ MonoBehaviour:
   - {fileID: 8525910794238813190, guid: 227ba0a06e7b88e43b10b7362840b236, type: 3}
   - {fileID: 1786918901100882539, guid: b0a5dba1ea9bf5046bd63cf527212df0, type: 3}
   - {fileID: 7520087580566225134, guid: d59691c45a0ff0d4b8de60db0d79f410, type: 3}
+  - {fileID: 992720491556518805, guid: 9672263b05d79ca4b851220e56659f59, type: 3}
 --- !u!4 &238636774
 Transform:
   m_ObjectHideFlags: 0
@@ -1147,6 +1148,12 @@ PrefabInstance:
       propertyPath: _shieldHits
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5442207050560243401, guid: de2b7feef8c4342408a5bec4c34641ea,
+        type: 3}
+      propertyPath: _laserPrefab
+      value: 
+      objectReference: {fileID: 556460426579326539, guid: 05bc330894691284f996d9117f449027,
+        type: 3}
     - target: {fileID: 5442207050560243401, guid: de2b7feef8c4342408a5bec4c34641ea,
         type: 3}
       propertyPath: _shieldPrefab
