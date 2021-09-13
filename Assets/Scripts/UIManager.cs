@@ -13,7 +13,7 @@ public class UIManager : MonoBehaviour
     private Sprite[] _livesSprites;
 
     [SerializeField]
-    private Text _scoreText, _gameOverText, _restartLevelText, _ammoText, _ammoGLText, _ammoVLText, _ammoOutText;
+    private Text _scoreText, _gameOverText, _restartLevelText, _ammoText, _ammoGLText, _ammoVLText, _ammoOutText, _fireMissileText;
     
     private GameManager _gameManager;
     private SpawnManager _spawnManager;
@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour
         _ammoGLText.enabled = false;
         _ammoVLText.enabled = false;
         _ammoOutText.enabled = false;
+        _fireMissileText.enabled = false;
 
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
@@ -117,5 +118,12 @@ public class UIManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2.0f);
         _ammoOutText.enabled = false;
+    }
+
+    public IEnumerator MissileFire()
+    {
+        _fireMissileText.enabled = true;
+        yield return new WaitForSeconds(2.0f);
+        _fireMissileText.enabled = false;
     }
 }

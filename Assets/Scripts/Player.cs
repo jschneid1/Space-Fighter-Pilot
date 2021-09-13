@@ -11,14 +11,16 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _thrusterSpeed = 2.5f;
     [SerializeField]
-    private GameObject _laserPrefab;
-    [SerializeField]
-    private float _fireRate = 0.15f;
+    private float _fireRate = 0.5f;
     [SerializeField]
     private float _canFire = -1f;
-        
-    private AudioSource _laserSource;
+    [SerializeField]
+    private float _missleFireRate = 1.0f;
+    [SerializeField]
+    private float _missileCanFire = -1f; 
 
+    private AudioSource _laserSource;
+    
     [SerializeField]
     private int _lives = 3;
     [SerializeField]
@@ -27,27 +29,32 @@ public class Player : MonoBehaviour
     private int _ammoCount = 15;
 
     [SerializeField]
+    private GameObject _laserPrefab;
+    [SerializeField]
     private GameObject _playerExplosion;
     [SerializeField]
-    private GameObject _leftEngineFire, _rightEngineFire;
+    private GameObject _leftEngineFire, _rightEngineFire, _rocketLauncher;
     [SerializeField]
     private GameObject _tripleShotPrefab;
 
     private SpawnManager _spawnManager;
     private UIManager _uiManager;
     private ShieldBehaviour _shieldBehaviour;
+    private RocketLauncherBehaviour _rocketLauncherBehaviour;
 
     private bool _tripleShotActive = false;
     private bool _boostActive;
     [SerializeField]
     private bool _shieldActive = false;
+    [SerializeField]
+    private bool _missileActive = false;
     
     private SpriteRenderer _playerSpriteRenderer;
     [SerializeField]
     private SpriteRenderer _thruster; 
     
     private PolygonCollider2D _playerCollider;
-  
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -58,7 +65,12 @@ public class Player : MonoBehaviour
         _playerCollider = gameObject.GetComponent<PolygonCollider2D>();
         _playerSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         _shieldBehaviour = gameObject.GetComponentInChildren<ShieldBehaviour>();
-        
+        _rocketLauncherBehaviour = gameObject.GetComponentInChildren<RocketLauncherBehaviour>();
+
+        if (_rocketLauncherBehaviour is null)
+        {
+            Debug.LogError("The Rocket Launcher Behaviour is NULL");
+        }
         if (_shieldBehaviour is null)
         {
             Debug.LogError("The Shield Behaviour is NULL");
@@ -81,6 +93,7 @@ public class Player : MonoBehaviour
 
         _rightEngineFire.SetActive(false);
         _leftEngineFire.SetActive(false);
+        _rocketLauncher.SetActive(false);
     }
 
     // Update is called once per frame
@@ -95,7 +108,16 @@ public class Player : MonoBehaviour
                 fireLaser();
                 AmmoCount(1);
             }
-        }            
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftAlt) && Time.time > _missileCanFire)
+        {
+            _missileCanFire = Time.time + _missleFireRate;
+            if (_missileActive is true)
+            {
+                _rocketLauncherBehaviour.FireMissile();
+            }
+        }
     }
 
     void playerMovement()
@@ -145,8 +167,6 @@ public class Player : MonoBehaviour
 
     void fireLaser()
     {
-        _canFire = Time.time + _fireRate;
-
         if (_tripleShotActive is true)
         {
             Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
@@ -190,6 +210,7 @@ public class Player : MonoBehaviour
         _rightEngineFire.SetActive(false);
         _leftEngineFire.SetActive(false);
         _thruster.enabled = false;
+        _rocketLauncher.SetActive(false);
         _uiManager.UILivesUpdate(_lives);
     }
 
@@ -215,6 +236,21 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5.0f);
         _boostActive = false;
+    }
+
+    public void MissileActive()
+    {
+        _missileActive = true;
+        _rocketLauncher.SetActive(true);
+        StartCoroutine(MissileDeactivate());
+        StartCoroutine(_uiManager.MissileFire());
+    }
+
+    IEnumerator MissileDeactivate()
+    {
+        yield return new WaitForSeconds(5.0f);
+        _missileActive = false;
+        _rocketLauncher.SetActive(false);
     }
 
     public void Shield()

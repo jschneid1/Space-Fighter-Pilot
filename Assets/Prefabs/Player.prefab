@@ -131,7 +131,7 @@ Transform:
   m_LocalScale: {x: 1.9329451, y: 1.9174378, z: 11.111109}
   m_Children: []
   m_Father: {fileID: 5442207050560243404}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5442207048864847213
 SpriteRenderer:
@@ -232,7 +232,7 @@ Transform:
   m_LocalScale: {x: 0.5665666, y: 0.9755643, z: 11.111109}
   m_Children: []
   m_Father: {fileID: 5442207050560243404}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5442207050069985710
 SpriteRenderer:
@@ -334,9 +334,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
-  - {fileID: 5442207050456167417}
   - {fileID: 5442207048864847214}
   - {fileID: 5442207050069985709}
+  - {fileID: 7842914574166650716}
   - {fileID: 5442207048813572283}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -566,20 +566,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _boostSpeed: 8.5
   _thrusterSpeed: 2.5
-  _laserPrefab: {fileID: 2697774464790625592, guid: c896ac392d4785446b3a8e75ed7763d3,
-    type: 3}
   _fireRate: 0.15
   _canFire: -1
+  _missleFireRate: 1
+  _missileCanFire: -1
   _lives: 3
+  _score: 0
+  _ammoCount: 15
+  _laserPrefab: {fileID: 2697774464790625592, guid: c896ac392d4785446b3a8e75ed7763d3,
+    type: 3}
   _playerExplosion: {fileID: 1089002875612693793, guid: 8c8a2e824e5ea3c479f29b8a4d8b55e2,
     type: 3}
   _leftEngineFire: {fileID: 5442207048864847212}
   _rightEngineFire: {fileID: 5442207048813572280}
-  _score: 0
-  _shieldHits: 2
   _tripleShotPrefab: {fileID: 7985979494747165468, guid: 0337216c37f59064396f8c24a7b19ff4,
     type: 3}
-  _shieldVisualiser: {fileID: 5442207050456167416}
+  _shieldActive: 0
+  _missileActive: 1
   _thruster: {fileID: 5442207050069985710}
 --- !u!50 &5442207050560243405
 Rigidbody2D:
@@ -674,17 +677,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7053716898563138175, guid: e86dbd131747ddb4ebb523e57d0ee31b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e86dbd131747ddb4ebb523e57d0ee31b, type: 3}
---- !u!4 &5442207050456167417 stripped
+--- !u!4 &7842914574166650716 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 5094394849088093914, guid: e86dbd131747ddb4ebb523e57d0ee31b,
-    type: 3}
-  m_PrefabInstance: {fileID: 951516700344929571}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &5442207050456167416 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 5094394849088093915, guid: e86dbd131747ddb4ebb523e57d0ee31b,
+  m_CorrespondingSourceObject: {fileID: 7053716898563138175, guid: e86dbd131747ddb4ebb523e57d0ee31b,
     type: 3}
   m_PrefabInstance: {fileID: 951516700344929571}
   m_PrefabAsset: {fileID: 0}

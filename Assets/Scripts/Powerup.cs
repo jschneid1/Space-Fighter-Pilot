@@ -6,7 +6,7 @@ public class Powerup : MonoBehaviour
 {
 
     [SerializeField] //0 = triple shot, 1 = speed, 2 = shield
-    private int powerupID;
+    private int powerupID, _powerUpRotSpeed;
     [SerializeField]
     private float _powerUpSpeed = 2.5f;
     private AudioSource _powerUp;
@@ -25,12 +25,13 @@ public class Powerup : MonoBehaviour
     void Update()
         
     {
-        transform.Translate(Vector3.down * _powerUpSpeed * Time.deltaTime);
-        if(transform.position.y < -5.6f)
+        transform.Translate(Vector3.down * _powerUpSpeed * Time.deltaTime, Space.World);
+        transform.Rotate(Vector3.forward * -_powerUpRotSpeed * Time.deltaTime);
+        if (transform.position.y < -5.6f)
         {
             Destroy(this.gameObject);
         }
-    }
+    } 
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -55,6 +56,9 @@ public class Powerup : MonoBehaviour
                         break;
                     case 4:
                         player.FirstAid();
+                        break;
+                    case 5:
+                        player.MissileActive();
                         break;
                     default:
                         Debug.Log("Default value");
