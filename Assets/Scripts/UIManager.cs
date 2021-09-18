@@ -43,6 +43,7 @@ public class UIManager : MonoBehaviour
             Debug.LogError("The Game Manager is NULL");
         }
         _spawnManager.StartSpawning();
+        StartCoroutine(ThrusterUse());
     }
 
    public void UIScoreUpdate(int playerScore)
@@ -125,5 +126,14 @@ public class UIManager : MonoBehaviour
         _fireMissileText.enabled = true;
         yield return new WaitForSeconds(2.0f);
         _fireMissileText.enabled = false;
+    }
+
+    IEnumerator ThrusterUse()
+    {
+        _fireMissileText.enabled = true;
+        _fireMissileText.text = "Press the 'Left Shift' to use Thrusters";
+        yield return new WaitForSeconds(2.0f);
+        _fireMissileText.enabled = false;
+        _fireMissileText.text = "Press 'Left Alt' to Fire Missile";
     }
 }

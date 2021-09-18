@@ -48,10 +48,12 @@ public class Player : MonoBehaviour
     private bool _shieldActive = false;
     [SerializeField]
     private bool _missileActive = false;
-    
+    [SerializeField]
+    private bool _thrusterActive = true;
+
     private SpriteRenderer _playerSpriteRenderer;
     [SerializeField]
-    private SpriteRenderer _thruster; 
+    private SpriteRenderer _thruster, _rocketLauncherSpriteRenderer; 
     
     private PolygonCollider2D _playerCollider;
     
@@ -93,7 +95,7 @@ public class Player : MonoBehaviour
 
         _rightEngineFire.SetActive(false);
         _leftEngineFire.SetActive(false);
-        _rocketLauncher.SetActive(false);
+        _rocketLauncherSpriteRenderer.enabled = false;
     }
 
     // Update is called once per frame
@@ -129,7 +131,7 @@ public class Player : MonoBehaviour
 
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.9f, 4.1f), 0);
 
-        if(Input.GetKey(KeyCode.LeftShift))
+        if(Input.GetKey(KeyCode.LeftShift) && _thrusterActive is true)
             {
                 transform.Translate(direction * _thrusterSpeed * Time.deltaTime);
             }
@@ -210,7 +212,7 @@ public class Player : MonoBehaviour
         _rightEngineFire.SetActive(false);
         _leftEngineFire.SetActive(false);
         _thruster.enabled = false;
-        _rocketLauncher.SetActive(false);
+        _rocketLauncherSpriteRenderer.enabled = false;
         _uiManager.UILivesUpdate(_lives);
     }
 
@@ -241,7 +243,7 @@ public class Player : MonoBehaviour
     public void MissileActive()
     {
         _missileActive = true;
-        _rocketLauncher.SetActive(true);
+        _rocketLauncherSpriteRenderer.enabled = true;
         StartCoroutine(MissileDeactivate());
         StartCoroutine(_uiManager.MissileFire());
     }
@@ -250,7 +252,17 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5.0f);
         _missileActive = false;
-        _rocketLauncher.SetActive(false);
+        _rocketLauncherSpriteRenderer.enabled = false;
+    }
+
+    public void ThrusterAcivate()
+    {
+        _thrusterActive = true;
+    }
+
+    public void ThrusterDeactivate()
+    {
+        _thrusterActive = false;
     }
 
     public void Shield()

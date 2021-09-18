@@ -1677,6 +1677,12 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!212 &1579499523 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 9197632958459011689, guid: de2b7feef8c4342408a5bec4c34641ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 1618608411}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1618608411
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1709,6 +1715,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5442207050560243401, guid: de2b7feef8c4342408a5bec4c34641ea,
+        type: 3}
+      propertyPath: _laserPrefab
+      value: 
+      objectReference: {fileID: 556460426579326539, guid: 05bc330894691284f996d9117f449027,
+        type: 3}
+    - target: {fileID: 5442207050560243401, guid: de2b7feef8c4342408a5bec4c34641ea,
+        type: 3}
+      propertyPath: _rocketLauncher
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5442207050560243401, guid: de2b7feef8c4342408a5bec4c34641ea,
+        type: 3}
+      propertyPath: _rocketLauncherSpriteRenderer
+      value: 
+      objectReference: {fileID: 1579499523}
     - target: {fileID: 5442207050560243404, guid: de2b7feef8c4342408a5bec4c34641ea,
         type: 3}
       propertyPath: m_RootOrder
@@ -1762,6 +1784,11 @@ PrefabInstance:
     - target: {fileID: 5442207050560243404, guid: de2b7feef8c4342408a5bec4c34641ea,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9197632958459011689, guid: de2b7feef8c4342408a5bec4c34641ea,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2089,3 +2116,4 @@ MonoBehaviour:
   _ammoGLText: {fileID: 1251822413}
   _ammoVLText: {fileID: 1251822413}
   _ammoOutText: {fileID: 1251822413}
+  _fireMissileText: {fileID: 0}

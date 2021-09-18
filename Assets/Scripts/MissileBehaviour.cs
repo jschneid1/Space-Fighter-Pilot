@@ -26,8 +26,12 @@ public class MissileBehaviour : MonoBehaviour
         if (_closestEnemy != null)
         {
             transform.up = _closestEnemy.position - transform.position;
-        }
 
+            if (_closestEnemy.transform.position.y < -5.5f)
+            {
+                _closestEnemy = null;
+            }
+        }
         MissileMovement();
     }
 
