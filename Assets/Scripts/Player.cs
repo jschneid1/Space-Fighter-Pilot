@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
     private UIManager _uiManager;
     private ShieldBehaviour _shieldBehaviour;
     private RocketLauncherBehaviour _rocketLauncherBehaviour;
+    private CameraBehaviour _cameraBehaviour;
 
     private bool _tripleShotActive = false;
     private bool _boostActive;
@@ -68,6 +69,12 @@ public class Player : MonoBehaviour
         _playerSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         _shieldBehaviour = gameObject.GetComponentInChildren<ShieldBehaviour>();
         _rocketLauncherBehaviour = gameObject.GetComponentInChildren<RocketLauncherBehaviour>();
+        _cameraBehaviour = GameObject.Find("Main Camera").GetComponent<CameraBehaviour>();
+
+        if (_cameraBehaviour is null)
+        {
+            Debug.LogError("The Camera Behaviour Behaviour is NULL");
+        }
 
         if (_rocketLauncherBehaviour is null)
         {
@@ -201,6 +208,7 @@ public class Player : MonoBehaviour
             Death();
         }
         _uiManager.UILivesUpdate(_lives);
+        _cameraBehaviour.StartShake(0.5f, 0.4f);
     }
 
     private void Death()

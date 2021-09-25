@@ -65,8 +65,11 @@ public class ThrusterBar : MonoBehaviour
 
     private void ThrusterFill()
     {
-        _thruster += Time.deltaTime * _thrusterFillRate;
-        _thrusterBarSlider.value = _thruster;
+        if (Input.GetKey(KeyCode.LeftShift) is false)
+        {
+            _thruster += Time.deltaTime * _thrusterFillRate;
+            _thrusterBarSlider.value = _thruster;
+        }
     }
 
     private void Thruster()
@@ -90,7 +93,7 @@ public class ThrusterBar : MonoBehaviour
             ThrusterBarInActive();
         }
 
-        if (_thruster >= 5)
+        else if (_thruster >= 5)
         {
             _thrusterBarActive = true;
             _player.ThrusterAcivate();
