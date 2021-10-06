@@ -17,7 +17,12 @@ public class Enemy : MonoBehaviour
 
     [SerializeField]
     private float _speed = 2.0f;
-     
+
+    [SerializeField]
+    private bool _altMovement = false;
+
+    private int dirChange;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -32,26 +37,40 @@ public class Enemy : MonoBehaviour
         _player = GameObject.Find("Player").GetComponent<Player>();
 
         StartCoroutine(FireDualLaser());
+        StartCoroutine(AltMovement());
     }
 
     // Update is called once per frame
     void Update()
         
-        {
+    {
         EnemyMovement();
-        }
+    }
+
     private void EnemyMovement()
-        {
-        transform.Translate(Vector3.down * _speed * Time.deltaTime);
+    {
+            
+       
+        if(_altMovement is true)
+            {
+                float horMovement = _speed * dirChange;
+                float verMovement = -_speed;
+                Vector3 direction = new Vector3(horMovement, verMovement, 0);
+                transform.Translate(direction  *  Time.deltaTime);
+            }
+        else
+            {
+                transform.Translate(Vector3.down * _speed * Time.deltaTime);
+            }
 
         if (transform.position.y < -5.7f)
             {
             float randomX = Random.Range(-8f, 8.5f);
             transform.position = new Vector3(randomX, 6.2f, 0f);
             }
-        }
-
-    private void OnTriggerEnter2D(Collider2D other)
+    }
+    
+private void OnTriggerEnter2D(Collider2D other)
        {
        
         if (other.tag is "Player")
@@ -95,7 +114,19 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void Explosion()
+    IEnumerator AltMovement()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(Random.Range(2, 5));
+            _altMovement = true;
+            dirChange = Random.Range(0, 2) * 2 - 1;
+            yield return new WaitForSeconds(Random.Range(1, 3));
+            _altMovement = false;
+        }
+    }
+
+        private void Explosion()
     {
         Instantiate(_explosionPrefab, this.transform.position + new Vector3(0, 0, -0.2f), Quaternion.identity);
         _enemyCollider.enabled = false;
