@@ -1134,7 +1134,7 @@ PrefabInstance:
     - target: {fileID: 5442207050560243404, guid: de2b7feef8c4342408a5bec4c34641ea,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5442207050560243404, guid: de2b7feef8c4342408a5bec4c34641ea,
         type: 3}
@@ -1524,8 +1524,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 341.70004, y: 114.86145}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 322.6, y: 114.86145}
+  m_SizeDelta: {x: 156.09299, y: 30}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &978287080
 MonoBehaviour:
@@ -1559,7 +1559,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Ammo: 15\t"
+  m_Text: "Ammo: 15 / 15\t"
 --- !u!222 &978287081
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2618,7 +2618,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2088729632
 GameObject:

@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private bool _altMovement = false;
 
-    private int dirChange;
+    private int _dirChange;
     
     // Start is called before the first frame update
     void Start()
@@ -49,15 +49,14 @@ public class Enemy : MonoBehaviour
 
     private void EnemyMovement()
     {
-            
-       
         if(_altMovement is true)
             {
-                float horMovement = _speed * dirChange;
+                float horMovement = _speed * _dirChange;
                 float verMovement = -_speed;
                 Vector3 direction = new Vector3(horMovement, verMovement, 0);
                 transform.Translate(direction  *  Time.deltaTime);
             }
+
         else
             {
                 transform.Translate(Vector3.down * _speed * Time.deltaTime);
@@ -70,8 +69,8 @@ public class Enemy : MonoBehaviour
             }
     }
     
-private void OnTriggerEnter2D(Collider2D other)
-       {
+    private void OnTriggerEnter2D(Collider2D other)
+    {
        
         if (other.tag is "Player")
         {
@@ -120,7 +119,7 @@ private void OnTriggerEnter2D(Collider2D other)
         {
             yield return new WaitForSeconds(Random.Range(2, 5));
             _altMovement = true;
-            dirChange = Random.Range(0, 2) * 2 - 1;
+            _dirChange = Random.Range(0, 2) * 2 - 1;
             yield return new WaitForSeconds(Random.Range(1, 3));
             _altMovement = false;
         }

@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour
         _scoreText.text = "Score: " + 0;
         _gameOverText.enabled = false;
         _restartLevelText.enabled = false;
-        _ammoText.text = "Ammo: " + 15;
+        _ammoText.text = "Ammo: 15 / 15";
         _ammoGLText.enabled = false;
         _ammoVLText.enabled = false;
         _ammoOutText.enabled = false;
@@ -53,7 +53,7 @@ public class UIManager : MonoBehaviour
 
     public void UIAmmoUpdate(int playerAmmo)
     {
-        _ammoText.text = "Ammo: " + playerAmmo.ToString();
+        _ammoText.text = "Ammo: " + playerAmmo.ToString() + " / 15";
 
         if (playerAmmo == 10)
         {
