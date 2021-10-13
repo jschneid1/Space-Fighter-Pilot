@@ -6,7 +6,14 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
-    private bool _isGameOver;
+    private bool _isGameOver, _waveFinished;
+
+    private WaveManager _waveManager;
+
+    private void Start()
+    {
+        _waveManager = GameObject.Find("WaveManager").GetComponent<WaveManager>();
+    }
 
     void Update()
     {
@@ -19,10 +26,28 @@ public class GameManager : MonoBehaviour
         {
             Application.Quit();
         }
+
+        if(Input.GetKeyDown(KeyCode.Return) && _waveFinished is true)
+        {
+            if(_waveManager.waveLevel == 1)
+            {
+                _waveManager.StartWaveTwo();
+            }
+
+            if(_waveManager.waveLevel == 2)
+            {
+                _waveManager.StartWaveThree();
+            }
+        }
     }
 
     public void GameOver()
     {
         _isGameOver = true;
+    }
+
+    public void WaveFinished()
+    {
+        _waveFinished = true;
     }
 }

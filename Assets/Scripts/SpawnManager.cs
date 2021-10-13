@@ -11,16 +11,20 @@ public class SpawnManager : MonoBehaviour
     private GameObject _enemyContainer;
     [SerializeField]
     private GameObject[] powerups;
-
+    
     private bool _stopSpawning = false;
+    
+    public int enemiesSpawned, enemiesAlive;
+
+    private Coroutine _enemySpawnRoutine, _powerUpRoutine, _altPowerUpRoutine;
     
     public void StartSpawning()
     {
-        StartCoroutine(SpawnEnemyRoutine());
+        _enemySpawnRoutine = StartCoroutine(SpawnEnemyRoutine());
         
-        StartCoroutine(SpawnPowerUpRoutine());
+        _powerUpRoutine = StartCoroutine(SpawnPowerUpRoutine());
 
-        StartCoroutine(SpawnAltPowerUpRotine());
+        _altPowerUpRoutine = StartCoroutine(SpawnAltPowerUpRotine());
     }
 
     IEnumerator SpawnEnemyRoutine()
@@ -31,9 +35,10 @@ public class SpawnManager : MonoBehaviour
             Vector3 posToSpawn = new Vector3((Random.Range(-8f, 8.5f)), 5.6f, 0f);            
             GameObject newEnemy = Instantiate(_enemy1Prefab, posToSpawn, Quaternion.identity);
             newEnemy.transform.parent = _enemyContainer.transform;
+            enemiesSpawned += 1;
             yield return new WaitForSeconds(Random.Range(1, 5));
         }
-    }
+     }
 
     IEnumerator SpawnPowerUpRoutine()
     {
@@ -59,10 +64,19 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    public void StopEnemySpawn()
+    {
+        StopCoroutine(_enemySpawnRoutine);
+    }
+
+    public void StopPowerUpSpawn()
+    {
+        StopCoroutine(_powerUpRoutine);
+        StopCoroutine(_altPowerUpRoutine);
+    }
+
     public void onPlayerDeath()
     {
             _stopSpawning = true;           
     }
-
-    
 }

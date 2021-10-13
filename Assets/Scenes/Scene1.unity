@@ -362,6 +362,8 @@ MonoBehaviour:
   - {fileID: 3089700556567035122, guid: c9152b96ec24ec0498716867e541ae28, type: 3}
   - {fileID: 8525910794238813190, guid: 227ba0a06e7b88e43b10b7362840b236, type: 3}
   - {fileID: 1786918901100882539, guid: b0a5dba1ea9bf5046bd63cf527212df0, type: 3}
+  enemiesSpawned: 0
+  enemiesAlive: 0
 --- !u!4 &238636774
 Transform:
   m_ObjectHideFlags: 0
@@ -1888,6 +1890,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1945983361
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1945983362}
+  m_Layer: 0
+  m_Name: WaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1945983362
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945983361}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 311.45087, y: 294.89053, z: -10.197202}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2027465607
 GameObject:
   m_ObjectHideFlags: 0
@@ -1986,6 +2018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isGameOver: 0
+  _waveFinished: 0
 --- !u!4 &2088729634
 Transform:
   m_ObjectHideFlags: 0
@@ -2130,3 +2163,5 @@ MonoBehaviour:
   _ammoVLText: {fileID: 1251822413}
   _ammoOutText: {fileID: 1251822413}
   _fireMissileText: {fileID: 0}
+  _levelOverText: {fileID: 0}
+  _nextLevelText: {fileID: 0}

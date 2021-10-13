@@ -94,12 +94,6 @@ public class Enemy : MonoBehaviour
 
         if (other.tag is "Shield")
         {
-            Collider2D shieldCollider = other.transform.GetComponent<Collider2D>();
-
-            if (shieldCollider is null)
-            {
-                Debug.LogError("There is no Shield Collider component.");
-            }
             Explosion();
         }
     }

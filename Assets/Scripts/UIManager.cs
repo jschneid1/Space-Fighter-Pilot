@@ -13,10 +13,12 @@ public class UIManager : MonoBehaviour
     private Sprite[] _livesSprites;
 
     [SerializeField]
-    private Text _scoreText, _gameOverText, _restartLevelText, _ammoText, _ammoGLText, _ammoVLText, _ammoOutText, _fireMissileText;
-    
+    private Text _scoreText, _gameOverText, _restartLevelText, _ammoText, _ammoGLText, _ammoVLText, _ammoOutText, _fireMissileText, _levelOverText, _nextLevelText;
+
+    private Player _player;
     private GameManager _gameManager;
     private SpawnManager _spawnManager;
+    private WaveManager _waveManager;
 
     // Start is called before the first frame update
     void Start()
@@ -30,9 +32,13 @@ public class UIManager : MonoBehaviour
         _ammoVLText.enabled = false;
         _ammoOutText.enabled = false;
         _fireMissileText.enabled = false;
+        _levelOverText.enabled = false;
+        _nextLevelText.enabled = false;
 
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        _waveManager = GameObject.Find("WaveManager").GetComponent<WaveManager>();
+        _player = GameObject.Find("Player").GetComponent<Player>();
 
         if (_spawnManager == null)
         {
@@ -135,5 +141,53 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         _fireMissileText.enabled = false;
         _fireMissileText.text = "Press 'Left Alt' to Fire Missile";
+    }
+
+    IEnumerator WaveOver()
+    {
+        int time = 0;
+        while (time < 5)
+        {
+            _levelOverText.enabled = true;
+            _levelOverText.text = "Congratulations you have completed Wave " + _waveManager.waveLevel.ToString();
+            yield return new WaitForSeconds(0.5f);
+            _levelOverText.enabled = false;
+            yield return new WaitForSeconds(0.5f);
+            time += 1;
+        }
+
+        if(_waveManager.waveLevel == 1)
+        {
+            yield return new WaitForSeconds(0.5f);
+            _nextLevelText.enabled = true;
+            _nextLevelText.text = "Nice work on surviving the first wave, as a reward you will magically have any damage repaired, and a full ammo count upon starting the next wave.";
+            yield return new WaitForSeconds(7.0f);
+            _nextLevelText.text = "Do not expect this from now on.                 Press Enter to Start the next wave.";
+        }
+
+        if (_waveManager.waveLevel == 2)
+        {
+            yield return new WaitForSeconds(0.5f);
+            _nextLevelText.enabled = true;
+            _nextLevelText.text = "No way!!!  You got this far, I gave you less credit than you deserve. Well Done.";
+            yield return new WaitForSeconds(7.0f);
+            _nextLevelText.text = "As promised no refill or repair.                 Press Enter to Start the next wave.";
+        }
+
+    }
+
+    public void WaveOverSequence()
+    {
+            StartCoroutine(WaveOver());
+            _gameManager.WaveFinished();
+    }
+
+    public void WaveStartSequence()
+    {
+        _nextLevelText.enabled = false;
+        if(_waveManager.waveLevel == 1)
+        {
+            _player.RestoreHealth();
+        }
     }
 }
