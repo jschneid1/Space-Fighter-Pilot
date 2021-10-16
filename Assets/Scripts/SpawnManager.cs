@@ -16,7 +16,7 @@ public class SpawnManager : MonoBehaviour
     
     public int enemiesSpawned, enemiesAlive;
 
-    private Coroutine _enemySpawnRoutine, _powerUpRoutine, _altPowerUpRoutine;
+    private Coroutine _enemySpawnRoutine, _powerUpRoutine, _altPowerUpRoutine, _negPowerUpRoutine;
     
     public void StartSpawning()
     {
@@ -25,6 +25,9 @@ public class SpawnManager : MonoBehaviour
         _powerUpRoutine = StartCoroutine(SpawnPowerUpRoutine());
 
         _altPowerUpRoutine = StartCoroutine(SpawnAltPowerUpRotine());
+
+        _negPowerUpRoutine = StartCoroutine(SpawnNegPowerUpRotine());
+        
     }
 
     IEnumerator SpawnEnemyRoutine()
@@ -64,6 +67,17 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    IEnumerator SpawnNegPowerUpRotine()
+    {
+        while (_stopSpawning is false)
+        {
+            yield return new WaitForSeconds(Random.Range(10, 16));
+            Vector3 posToSpawnPowerup = new Vector3((Random.Range(-8.2f, 8.8f)), 5.5f, 0f);
+            GameObject newPowerUp = Instantiate(powerups[6], posToSpawnPowerup, Quaternion.identity);
+            yield return new WaitForSeconds(Random.Range(1, 5));
+        }
+    }
+
     public void StopEnemySpawn()
     {
         StopCoroutine(_enemySpawnRoutine);
@@ -73,6 +87,7 @@ public class SpawnManager : MonoBehaviour
     {
         StopCoroutine(_powerUpRoutine);
         StopCoroutine(_altPowerUpRoutine);
+        StopCoroutine(_negPowerUpRoutine);
     }
 
     public void onPlayerDeath()

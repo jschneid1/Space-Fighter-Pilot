@@ -60,6 +60,9 @@ public class Powerup : MonoBehaviour
                     case 5:
                         player.MissileActive();
                         break;
+                    case 6:
+                        player.ActivateNegMovement();
+                        break;
                     default:
                         Debug.Log("Default value");
                         break;

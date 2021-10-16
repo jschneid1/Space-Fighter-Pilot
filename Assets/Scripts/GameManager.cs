@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     {
        if(Input.GetKeyDown(KeyCode.R) && _isGameOver is true)
         {
-            SceneManager.LoadScene(2); //Current Game Scene
+            SceneManager.LoadScene(2); //Start Game Scene
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
                 _waveManager.StartWaveTwo();
             }
 
-            if(_waveManager.waveLevel == 2)
+            else if(_waveManager.waveLevel == 2)
             {
                 _waveManager.StartWaveThree();
             }

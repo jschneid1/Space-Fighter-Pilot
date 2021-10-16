@@ -518,7 +518,9 @@ MonoBehaviour:
   - {fileID: 7520087580566225134, guid: d59691c45a0ff0d4b8de60db0d79f410, type: 3}
   - {fileID: 992720491556518805, guid: 9672263b05d79ca4b851220e56659f59, type: 3}
   - {fileID: 707396641252338002, guid: ba97d574e4a011548a9da357ad624847, type: 3}
+  - {fileID: 5446178295102897680, guid: 8b31f8290ea35a54c95647d995807a69, type: 3}
   enemiesSpawned: 0
+  enemiesAlive: 0
 --- !u!4 &238636774
 Transform:
   m_ObjectHideFlags: 0
@@ -2551,6 +2553,7 @@ MonoBehaviour:
   _rocketLauncher: {fileID: 0}
   _tripleShotPrefab: {fileID: 0}
   _shieldActive: 0
+  _negMovement: 0
   _missileActive: 0
   _thrusterActive: 1
   _thruster: {fileID: 0}

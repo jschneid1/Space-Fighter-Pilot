@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
     private bool _tripleShotActive = false;
     private bool _boostActive;
     [SerializeField]
-    private bool _shieldActive = false;
+    private bool _shieldActive = false, _negMovement = false;
     [SerializeField]
     private bool _missileActive = false;
     [SerializeField]
@@ -146,6 +146,11 @@ public class Player : MonoBehaviour
         if (_boostActive is true)
         {
             transform.Translate(direction * _boostSpeed * Time.deltaTime);
+        }
+
+        if(_negMovement is true)
+        {
+            transform.Translate(-direction * _speed * Time.deltaTime);
         }
 
         else
@@ -335,6 +340,18 @@ public class Player : MonoBehaviour
         _uiManager.UIAmmoUpdate(_ammoCount);
         _leftEngineFire.SetActive(false);
         _rightEngineFire.SetActive(false);
+    }
+
+    public void ActivateNegMovement()
+    {
+        _negMovement = true;
+        StartCoroutine(NegMovement());
+    }
+
+    IEnumerator NegMovement()
+    {
+            yield return new WaitForSeconds(3.0f);
+            _negMovement = false;
     }
 }
 

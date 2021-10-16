@@ -145,20 +145,15 @@ public class UIManager : MonoBehaviour
 
     IEnumerator WaveOver()
     {
-        int time = 0;
-        while (time < 5)
         {
             _levelOverText.enabled = true;
             _levelOverText.text = "Congratulations you have completed Wave " + _waveManager.waveLevel.ToString();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(4.0f);
             _levelOverText.enabled = false;
-            yield return new WaitForSeconds(0.5f);
-            time += 1;
         }
 
         if(_waveManager.waveLevel == 1)
         {
-            yield return new WaitForSeconds(0.5f);
             _nextLevelText.enabled = true;
             _nextLevelText.text = "Nice work on surviving the first wave, as a reward you will magically have any damage repaired, and a full ammo count upon starting the next wave.";
             yield return new WaitForSeconds(7.0f);
@@ -167,13 +162,11 @@ public class UIManager : MonoBehaviour
 
         if (_waveManager.waveLevel == 2)
         {
-            yield return new WaitForSeconds(0.5f);
             _nextLevelText.enabled = true;
             _nextLevelText.text = "No way!!!  You got this far, I gave you less credit than you deserve. Well Done.";
             yield return new WaitForSeconds(7.0f);
             _nextLevelText.text = "As promised no refill or repair.                 Press Enter to Start the next wave.";
         }
-
     }
 
     public void WaveOverSequence()
