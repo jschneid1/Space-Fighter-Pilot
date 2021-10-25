@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour
 
     private SpriteRenderer _spriteRenderer;
 
+    private WaveManager _waveManager;
+
     [SerializeField]
     private GameObject _explosionPrefab;
     [SerializeField]
@@ -19,9 +21,10 @@ public class Enemy : MonoBehaviour
     private float _speed = 2.0f;
 
     [SerializeField]
-    private bool _altMovement = false;
-
-    private int _dirChange;
+    private bool _altMovement = false, _altEnemy = false;
+    
+    [SerializeField]
+    private int _dirChange, _enemiesSpawned, _wave;
     
     // Start is called before the first frame update
     void Start()
@@ -36,8 +39,11 @@ public class Enemy : MonoBehaviour
 
         _player = GameObject.Find("Player").GetComponent<Player>();
 
+       _waveManager = GameObject.Find("WaveManager").GetComponent<WaveManager>();
+
+       _waveManager.EnemiesSpawned();
+
         StartCoroutine(FireDualLaser());
-        StartCoroutine(AltMovement());
     }
 
     // Update is called once per frame
@@ -67,6 +73,16 @@ public class Enemy : MonoBehaviour
             float randomX = Random.Range(-8f, 8.5f);
             transform.position = new Vector3(randomX, 6.2f, 0f);
             }
+
+        if(transform.position.x < -8.5f)
+        {
+            transform.position = new Vector3(-8.5f, transform.position.y, 0f);
+        }
+
+        if (transform.position.x > 9.0f)
+        {
+            transform.position = new Vector3(9.0f, transform.position.y, 0f);
+        }
     }
     
     private void OnTriggerEnter2D(Collider2D other)
@@ -92,10 +108,11 @@ public class Enemy : MonoBehaviour
             Explosion();
         }
 
-        if (other.tag is "Shield")
+        else if (other.tag is "Shield")
         {
             Explosion();
         }
+        
     }
 
     IEnumerator FireDualLaser()
@@ -103,7 +120,15 @@ public class Enemy : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(2, 4));
-            Instantiate(_enemyLaser, transform.position, Quaternion.identity);
+            if(_altEnemy is true)
+            {
+                Instantiate(_enemyLaser, transform.position + new Vector3(0, -0.9f, 0), Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(_enemyLaser, transform.position, Quaternion.identity);
+            }
+            
         }
     }
 
@@ -111,20 +136,44 @@ public class Enemy : MonoBehaviour
     {
         while(true)
         {
-            yield return new WaitForSeconds(Random.Range(2, 5));
-            _altMovement = true;
-            _dirChange = Random.Range(0, 2) * 2 - 1;
             yield return new WaitForSeconds(Random.Range(1, 3));
             _altMovement = false;
+            _dirChange = Random.Range(0, 2) * 2 - 1;
+            yield return new WaitForSeconds(Random.Range(1, 3));
+            _altMovement = true;
         }
     }
 
-        private void Explosion()
+    IEnumerator AltMovement1()
+    {
+        while (true)
+        {
+            _dirChange = Random.Range(0, 2) * 2 - 1;
+            yield return new WaitForSeconds(Random.Range(1, 3));
+            _dirChange = _dirChange * -1;
+            yield return new WaitForSeconds(Random.Range(1, 3));
+        }
+    }
+
+
+    private void Explosion()
     {
         Instantiate(_explosionPrefab, this.transform.position + new Vector3(0, 0, -0.2f), Quaternion.identity);
         _enemyCollider.enabled = false;
         _spriteRenderer.enabled = false;
         _speed = 0;
-        Destroy(gameObject, 0.2f);
+        Destroy(gameObject, 0.005f);
+    }
+
+    public void AlternativeMovement()
+    {
+        _altMovement = true;
+        StartCoroutine(AltMovement());
+    }
+
+    public void AltMoveOne()
+    {
+        _altMovement = true;
+        StartCoroutine(AltMovement1());
     }
 }

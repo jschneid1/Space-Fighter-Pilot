@@ -510,6 +510,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemy1Prefab: {fileID: 3334818170796103950, guid: bb682fd36730d56479878433441dfbf0,
     type: 3}
+  _enemyAltPrefab: {fileID: 7054136777426760496, guid: 652689bbab9721f44978b78fb1f57844,
+    type: 3}
   _enemyContainer: {fileID: 1354612372}
   powerups:
   - {fileID: 3089700556567035122, guid: c9152b96ec24ec0498716867e541ae28, type: 3}
@@ -519,8 +521,8 @@ MonoBehaviour:
   - {fileID: 992720491556518805, guid: 9672263b05d79ca4b851220e56659f59, type: 3}
   - {fileID: 707396641252338002, guid: ba97d574e4a011548a9da357ad624847, type: 3}
   - {fileID: 5446178295102897680, guid: 8b31f8290ea35a54c95647d995807a69, type: 3}
-  enemiesSpawned: 0
-  enemiesAlive: 0
+  _enemiesSpawned: 0
+  _wave: 0
 --- !u!4 &238636774
 Transform:
   m_ObjectHideFlags: 0
@@ -1296,6 +1298,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5442207050560243400, guid: de2b7feef8c4342408a5bec4c34641ea,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5442207050560243401, guid: de2b7feef8c4342408a5bec4c34641ea,
         type: 3}
       propertyPath: _thrusterActive
@@ -1892,8 +1899,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemiesSpawned: 0
   _coRoutineUse: 0
-  _wave: 0
-  waveLevel: 0
+  _wave: 3
+  _enemiesAlive: 0
   _enemyArray: []
 --- !u!4 &1248204626
 Transform:
@@ -3031,6 +3038,7 @@ MonoBehaviour:
   _fireMissileText: {fileID: 2145460575}
   _levelOverText: {fileID: 34503021}
   _nextLevelText: {fileID: 586345023}
+  _wave: 0
 --- !u!1 &2145460573
 GameObject:
   m_ObjectHideFlags: 0

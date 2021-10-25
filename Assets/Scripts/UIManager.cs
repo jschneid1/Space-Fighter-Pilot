@@ -14,6 +14,9 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private Text _scoreText, _gameOverText, _restartLevelText, _ammoText, _ammoGLText, _ammoVLText, _ammoOutText, _fireMissileText, _levelOverText, _nextLevelText;
+    
+    [SerializeField]
+    private int _wave;
 
     private Player _player;
     private GameManager _gameManager;
@@ -34,6 +37,7 @@ public class UIManager : MonoBehaviour
         _fireMissileText.enabled = false;
         _levelOverText.enabled = false;
         _nextLevelText.enabled = false;
+        _wave = 1;
 
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
@@ -147,12 +151,12 @@ public class UIManager : MonoBehaviour
     {
         {
             _levelOverText.enabled = true;
-            _levelOverText.text = "Congratulations you have completed Wave " + _waveManager.waveLevel.ToString();
+            _levelOverText.text = "Congratulations you have completed Wave " + _wave.ToString();
             yield return new WaitForSeconds(4.0f);
             _levelOverText.enabled = false;
         }
 
-        if(_waveManager.waveLevel == 1)
+        if(_wave == 1)
         {
             _nextLevelText.enabled = true;
             _nextLevelText.text = "Nice work on surviving the first wave, as a reward you will magically have any damage repaired, and a full ammo count upon starting the next wave.";
@@ -160,7 +164,7 @@ public class UIManager : MonoBehaviour
             _nextLevelText.text = "Do not expect this from now on.                 Press Enter to Start the next wave.";
         }
 
-        if (_waveManager.waveLevel == 2)
+        if (_wave == 2)
         {
             _nextLevelText.enabled = true;
             _nextLevelText.text = "No way!!!  You got this far, I gave you less credit than you deserve. Well Done.";
@@ -178,9 +182,14 @@ public class UIManager : MonoBehaviour
     public void WaveStartSequence()
     {
         _nextLevelText.enabled = false;
-        if(_waveManager.waveLevel == 1)
+        if(_wave == 1)
         {
             _player.RestoreHealth();
         }
+    }
+
+    public void WaveLevel()
+    {
+        _wave += 1;
     }
 }

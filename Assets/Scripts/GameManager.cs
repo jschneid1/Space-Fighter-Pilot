@@ -10,9 +10,12 @@ public class GameManager : MonoBehaviour
 
     private WaveManager _waveManager;
 
+    private int _wave;
+
     private void Start()
     {
         _waveManager = GameObject.Find("WaveManager").GetComponent<WaveManager>();
+        _wave = 1;
     }
 
     void Update()
@@ -29,12 +32,12 @@ public class GameManager : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Return) && _waveFinished is true)
         {
-            if(_waveManager.waveLevel == 1)
+            if(_wave == 1)
             {
                 _waveManager.StartWaveTwo();
             }
 
-            else if(_waveManager.waveLevel == 2)
+            else if(_wave == 2)
             {
                 _waveManager.StartWaveThree();
             }
@@ -49,5 +52,15 @@ public class GameManager : MonoBehaviour
     public void WaveFinished()
     {
         _waveFinished = true;
+    }
+
+    public void WaveLevel()
+    {
+        _wave += 1;
+    }
+
+    public void WaveStart()
+    {
+        _waveFinished = false;
     }
 }
