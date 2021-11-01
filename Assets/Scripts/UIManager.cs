@@ -23,6 +23,8 @@ public class UIManager : MonoBehaviour
     private SpawnManager _spawnManager;
     private WaveManager _waveManager;
 
+    private Coroutine _waveOverSequence;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -175,13 +177,15 @@ public class UIManager : MonoBehaviour
 
     public void WaveOverSequence()
     {
-            StartCoroutine(WaveOver());
+            _waveOverSequence = StartCoroutine(WaveOver());
             _gameManager.WaveFinished();
     }
 
     public void WaveStartSequence()
     {
+        _levelOverText.enabled = false;
         _nextLevelText.enabled = false;
+        StopCoroutine(_waveOverSequence);
         if(_wave == 1)
         {
             _player.RestoreHealth();

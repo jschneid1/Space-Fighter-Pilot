@@ -523,6 +523,7 @@ MonoBehaviour:
   - {fileID: 5446178295102897680, guid: 8b31f8290ea35a54c95647d995807a69, type: 3}
   _enemiesSpawned: 0
   _wave: 0
+  _ammoSpawnRate: 1
 --- !u!4 &238636774
 Transform:
   m_ObjectHideFlags: 0

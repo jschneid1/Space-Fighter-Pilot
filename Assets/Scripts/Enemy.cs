@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
     private bool _altMovement = false, _altEnemy = false;
     
     [SerializeField]
-    private int _dirChange, _enemiesSpawned, _wave;
+    private int _dirChange;
     
     // Start is called before the first frame update
     void Start()
