@@ -15,7 +15,7 @@ public class SpawnManager : MonoBehaviour
     private Enemy _newEnemy;
     
     [SerializeField]
-    private int _enemiesSpawned, _wave;
+    private int _enemiesSpawned, _wave, _enemyShielded;
     
     private bool _stopSpawning = false;
 
@@ -173,5 +173,16 @@ public class SpawnManager : MonoBehaviour
                 _ammoSpawnRate = 0.5f;
             }
         }
+
+        if(_enemiesSpawned == _enemyShielded)
+        {
+            _newEnemy.EnemyShieldActivate();
+        }
+    }
+    
+    public void EnemyShielded(int shielded)
+    {
+
+        _enemyShielded = shielded;
     }
 }

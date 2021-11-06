@@ -7,11 +7,11 @@ public class WaveManager : MonoBehaviour
     private SpawnManager _spawnManager;
     private UIManager _uiManager;
     private GameManager _gameManager;
-    //private Enemy _enemy;
+    private EnemyShieldBehaviour _enemy;
     
 
     [SerializeField]
-    private int _enemiesSpawned, _coRoutineUse, _wave, _enemiesAlive;
+    private int _enemiesSpawned, _coRoutineUse, _wave, _enemiesAlive, _enemyShielded;
         
     [SerializeField]
     private SpriteRenderer[] _enemyArray;
@@ -37,8 +37,15 @@ public class WaveManager : MonoBehaviour
             Debug.LogError("The Game Manager is NULL");
         }
 
+        if(_enemy != null)
+        {
+            _enemy = GameObject.Find("EnemyShield").GetComponent<EnemyShieldBehaviour>();
+        }
+
         _wave = 1;
+        _enemyShielded = Random.Range(2, 3);
         _spawnManager.Wave(_wave);
+        _spawnManager.EnemyShielded(_enemyShielded);
     }
 
     // Update is called once per frame

@@ -233,12 +233,11 @@ MonoBehaviour:
     type: 3}
   _enemyLaser: {fileID: 1730742021308994104, guid: 51c1f4af50dede24fb4c8e746f89feb7,
     type: 3}
+  _enemyCollider: {fileID: 7054136777426760527}
   _speed: 2
   _altMovement: 0
   _altEnemy: 1
   _dirChange: 0
-  _enemiesSpawned: 0
-  _wave: 0
 --- !u!1001 &5467076191016701603
 PrefabInstance:
   m_ObjectHideFlags: 0

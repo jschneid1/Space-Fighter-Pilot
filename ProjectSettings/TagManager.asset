@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Shield
   - Enemy_Weapon
+  - Enemy_Shield
   layers:
   - Default
   - TransparentFX

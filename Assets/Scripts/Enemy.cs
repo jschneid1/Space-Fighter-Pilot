@@ -5,7 +5,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private Player _player;
-
+    private EnemyShieldBehaviour _enemyShield;
+    [SerializeField]
     private SpriteRenderer _spriteRenderer;
 
     private WaveManager _waveManager;
@@ -14,14 +15,14 @@ public class Enemy : MonoBehaviour
     private GameObject _explosionPrefab;
     [SerializeField]
     private GameObject _enemyLaser;
-
+    [SerializeField]
     private Collider2D _enemyCollider;
 
     [SerializeField]
     private float _speed = 2.0f;
 
     [SerializeField]
-    private bool _altMovement = false, _altEnemy = false;
+    private bool _altMovement = false, _altEnemy = false, _enemyShieldActive;
     
     [SerializeField]
     private int _dirChange;
@@ -29,7 +30,8 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _enemyCollider = GetComponent<Collider2D>();
+        _enemyCollider = GetComponent<PolygonCollider2D>();
+        _enemyShield = gameObject.GetComponentInChildren<EnemyShieldBehaviour>();
 
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
             if(_spriteRenderer is null)
@@ -87,32 +89,53 @@ public class Enemy : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-       
-        if (other.tag is "Player")
-        {
-            _player.Damage();
-            Explosion();
-        }
-
-       else if (other.tag is "Laser")
-        {
-            Destroy(other.gameObject);
-            if (_player is null)
+            if(_enemyShieldActive is true)
             {
-                Debug.LogError("There is no Player component for score");
-            }
-            if (_player != null)
-            {
-                _player.Score(10);
-            }
-            Explosion();
-        }
+                if (other.tag is "Player")
+                {
+                    _player.Damage();
+                    DeactivateShield();
+                }
 
-        else if (other.tag is "Shield")
-        {
-            Explosion();
-        }
-        
+            else if (other.tag is "Laser")
+                {
+                    Destroy(other.gameObject);
+                    DeactivateShield();
+                }
+
+            else if (other.tag is "Shield")
+                {
+                    DeactivateShield();
+                }
+            }
+
+            else
+            {
+                if (other.tag is "Player")
+                {
+                     _player.Damage();
+                     Explosion();
+                }
+
+                else if (other.tag is "Laser")
+                {
+                    Destroy(other.gameObject);
+                    if (_player is null)
+                        {
+                            Debug.LogError("There is no Player component for score");
+                        }
+                    if (_player != null)
+                        {
+                            _player.Score(10);
+                        }
+                    Explosion();
+                }
+
+                else if (other.tag is "Shield")
+                    {
+                        Explosion();
+                    }
+            }
     }
 
     IEnumerator FireDualLaser()
@@ -128,7 +151,6 @@ public class Enemy : MonoBehaviour
             {
                 Instantiate(_enemyLaser, transform.position, Quaternion.identity);
             }
-            
         }
     }
 
@@ -154,8 +176,7 @@ public class Enemy : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(1, 3));
         }
     }
-
-
+    
     private void Explosion()
     {
         Instantiate(_explosionPrefab, this.transform.position + new Vector3(0, 0, -0.2f), Quaternion.identity);
@@ -175,5 +196,17 @@ public class Enemy : MonoBehaviour
     {
         _altMovement = true;
         StartCoroutine(AltMovement1());
+    }
+
+    public void EnemyShieldActivate()
+    {
+        _enemyShieldActive = true;
+        _enemyShield.EnemyShieldActivate();
+    }
+
+    private void DeactivateShield()
+    {
+        _enemyShield.EnemyShieldDeactivate();
+        _enemyShieldActive = false;
     }
 }
