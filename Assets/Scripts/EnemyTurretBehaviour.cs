@@ -35,7 +35,7 @@ public class EnemyTurretBehaviour : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(1, 3));
+            yield return new WaitForSeconds(Random.Range(2, 4));
             Instantiate(_laser, transform.position, transform.rotation);
         }
     }

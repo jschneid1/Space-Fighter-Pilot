@@ -9,6 +9,7 @@ TagManager:
   - Shield
   - Enemy_Weapon
   - Enemy_Shield
+  - Enemy_Ram
   layers:
   - Default
   - TransparentFX

@@ -19,10 +19,10 @@ public class Enemy : MonoBehaviour
     private Collider2D _enemyCollider;
 
     [SerializeField]
-    private float _speed = 2.0f;
+    private float _speed = 2.0f, _playerDistance, _ramSpeed = 2.0f;
 
     [SerializeField]
-    private bool _altMovement = false, _altEnemy = false, _enemyShieldActive;
+    private bool _altMovement = false, _altEnemy = false, _enemyShieldActive, _enemyRamActive, _enemyRam;
     
     [SerializeField]
     private int _dirChange;
@@ -52,12 +52,26 @@ public class Enemy : MonoBehaviour
     void Update()
         
     {
+        _playerDistance = Vector2.Distance(_player.transform.position, this.transform.position);
         EnemyMovement();
     }
 
     private void EnemyMovement()
     {
-        if(_altMovement is true)
+        if (_playerDistance < 5 && _enemyRamActive is true && transform.position.y > -1.05f)
+        {
+            _speed = 0;
+            transform.up = transform.position - _player.transform.position;
+            EnemyRam();
+            _enemyRamActive = false;
+        }
+
+        if(_enemyRam is true)
+        {
+            transform.Translate(Vector3.down * (_ramSpeed * 2) * Time.deltaTime);
+        }
+
+        if (_altMovement is true)
             {
                 float horMovement = _speed * _dirChange;
                 float verMovement = -_speed;
@@ -76,7 +90,13 @@ public class Enemy : MonoBehaviour
             transform.position = new Vector3(randomX, 6.2f, 0f);
             }
 
-        if(transform.position.x < -8.5f)
+        if (transform.position.y < -5.65f && _enemyRam is true)
+        {
+            transform.rotation = Quaternion.identity;
+            EnemyRamFalse();
+        }
+        
+            if (transform.position.x < -8.5f)
         {
             transform.position = new Vector3(-8.5f, transform.position.y, 0f);
         }
@@ -86,56 +106,56 @@ public class Enemy : MonoBehaviour
             transform.position = new Vector3(9.0f, transform.position.y, 0f);
         }
     }
-    
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-            if(_enemyShieldActive is true)
+        if (_enemyShieldActive is true)
+        {
+            if (other.tag is "Player")
             {
-                if (other.tag is "Player")
-                {
-                    _player.Damage();
-                    DeactivateShield();
-                }
+                _player.Damage();
+                DeactivateShield();
+            }
 
             else if (other.tag is "Laser")
-                {
-                    Destroy(other.gameObject);
-                    DeactivateShield();
-                }
+            {
+                Destroy(other.gameObject);
+                DeactivateShield();
+            }
 
             else if (other.tag is "Shield")
-                {
-                    DeactivateShield();
-                }
-            }
-
-            else
             {
-                if (other.tag is "Player")
-                {
-                     _player.Damage();
-                     Explosion();
-                }
-
-                else if (other.tag is "Laser")
-                {
-                    Destroy(other.gameObject);
-                    if (_player is null)
-                        {
-                            Debug.LogError("There is no Player component for score");
-                        }
-                    if (_player != null)
-                        {
-                            _player.Score(10);
-                        }
-                    Explosion();
-                }
-
-                else if (other.tag is "Shield")
-                    {
-                        Explosion();
-                    }
+                DeactivateShield();
             }
+        }
+
+        else
+        {
+            if (other.tag is "Player")
+            {
+                _player.Damage();
+                Explosion();
+            }
+
+            else if (other.tag is "Laser")
+            {
+                Destroy(other.gameObject);
+                if (_player is null)
+                {
+                    Debug.LogError("There is no Player component for score");
+                }
+                if (_player != null)
+                {
+                    _player.Score(10);
+                }
+                Explosion();
+            }
+
+            else if (other.tag is "Shield")
+            {
+                Explosion();
+            }
+        }
     }
 
     IEnumerator FireDualLaser()
@@ -145,11 +165,11 @@ public class Enemy : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(2, 4));
             if(_altEnemy is true)
             {
-                Instantiate(_enemyLaser, transform.position + new Vector3(0, -0.9f, 0), Quaternion.identity);
+                Instantiate(_enemyLaser, transform.position, transform.rotation);
             }
             else
             {
-                Instantiate(_enemyLaser, transform.position, Quaternion.identity);
+                Instantiate(_enemyLaser, transform.position, transform.rotation);
             }
         }
     }
@@ -209,4 +229,22 @@ public class Enemy : MonoBehaviour
         _enemyShield.EnemyShieldDeactivate();
         _enemyShieldActive = false;
     }
+
+    public void ActivateRam()
+    {
+        _enemyRamActive = true;
+    }
+
+    private void EnemyRam()
+    {
+        _enemyRam = true;
+    }
+
+    private void EnemyRamFalse()
+    {
+        _enemyRam = false;
+        _speed = 2;
+    }
 }
+
+

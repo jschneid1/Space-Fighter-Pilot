@@ -42,6 +42,7 @@ public class Player : MonoBehaviour
     private ShieldBehaviour _shieldBehaviour;
     private RocketLauncherBehaviour _rocketLauncherBehaviour;
     private CameraBehaviour _cameraBehaviour;
+    private WaveManager _waveManager;
 
     private bool _tripleShotActive = false;
     private bool _boostActive;
@@ -70,6 +71,7 @@ public class Player : MonoBehaviour
         _shieldBehaviour = gameObject.GetComponentInChildren<ShieldBehaviour>();
         _rocketLauncherBehaviour = gameObject.GetComponentInChildren<RocketLauncherBehaviour>();
         _cameraBehaviour = GameObject.Find("Main Camera").GetComponent<CameraBehaviour>();
+        _waveManager = GameObject.Find("WaveManager").GetComponent<WaveManager>();
 
         if (_cameraBehaviour is null)
         {
@@ -227,6 +229,7 @@ public class Player : MonoBehaviour
         _thruster.enabled = false;
         _rocketLauncherSpriteRenderer.enabled = false;
         _uiManager.UILivesUpdate(_lives);
+        _waveManager.PlayerDead();
     }
 
     public void TripleShot()

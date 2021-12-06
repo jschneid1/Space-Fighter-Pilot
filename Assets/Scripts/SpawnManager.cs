@@ -15,7 +15,7 @@ public class SpawnManager : MonoBehaviour
     private Enemy _newEnemy;
     
     [SerializeField]
-    private int _enemiesSpawned, _wave, _enemyShielded;
+    private int _enemiesSpawned, _wave, _enemyShielded, _rammingEnemy, _enemiesSpawnd;
     
     private bool _stopSpawning = false;
 
@@ -51,6 +51,7 @@ public class SpawnManager : MonoBehaviour
             GameObject newEnemy = Instantiate(_enemy1Prefab, posToSpawn, Quaternion.identity);
             newEnemy.transform.parent = _enemyContainer.transform;
             _enemiesSpawned += 1;
+            _enemiesSpawnd += 1;
             _newEnemy = newEnemy.GetComponentInChildren<Enemy>();
             yield return _newEnemy;
             Movement();
@@ -144,6 +145,8 @@ public class SpawnManager : MonoBehaviour
     public void EnemiesSpawned()
     {
         _enemiesSpawned = 0;
+        _enemiesSpawnd = 0;
+        _rammingEnemy = Random.Range(2, 5);
     }
 
     private void Movement()
@@ -177,12 +180,23 @@ public class SpawnManager : MonoBehaviour
         if(_enemiesSpawned == _enemyShielded)
         {
             _newEnemy.EnemyShieldActivate();
+            _enemyShielded += Random.Range(2, 5);
+        }
+
+        if(_enemiesSpawnd == _rammingEnemy)
+        {
+            _newEnemy.ActivateRam();
+            _rammingEnemy += Random.Range(2, 5);
         }
     }
     
     public void EnemyShielded(int shielded)
     {
-
         _enemyShielded = shielded;
+    }
+
+    public void RammingEnemy(int ramming)
+    {
+        _rammingEnemy = ramming;
     }
 }
