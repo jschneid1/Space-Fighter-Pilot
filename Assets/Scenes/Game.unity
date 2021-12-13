@@ -525,6 +525,8 @@ MonoBehaviour:
   _wave: 0
   _enemyShielded: 0
   _rammingEnemy: 0
+  _enemiesSpawnd: 0
+  _fireBackwardEnemy: 0
   _ammoSpawnRate: 1
 --- !u!4 &238636774
 Transform:
@@ -1334,7 +1336,7 @@ PrefabInstance:
     - target: {fileID: 5442207050560243404, guid: de2b7feef8c4342408a5bec4c34641ea,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.299
+      value: -7.206
       objectReference: {fileID: 0}
     - target: {fileID: 5442207050560243404, guid: de2b7feef8c4342408a5bec4c34641ea,
         type: 3}
@@ -1906,6 +1908,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a5cc31c6b9b8594a9eaf630f4ddc419, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerAlive: 1
   _enemiesSpawned: 0
   _coRoutineUse: 0
   _wave: 3

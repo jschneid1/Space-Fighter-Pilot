@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     private Player _player;
     private EnemyShieldBehaviour _enemyShield;
+    private EnemyWeaponBackFire _enemyWeaponBackFire;
     [SerializeField]
     private SpriteRenderer _spriteRenderer;
 
@@ -22,7 +23,7 @@ public class Enemy : MonoBehaviour
     private float _speed = 2.0f, _playerDistance, _ramSpeed = 2.0f;
 
     [SerializeField]
-    private bool _altMovement = false, _altEnemy = false, _enemyShieldActive, _enemyRamActive, _enemyRam;
+    private bool _altMovement = false, _altEnemy = false, _enemyShieldActive, _enemyRamActive, _enemyRam, _enemyWeaponActive;
     
     [SerializeField]
     private int _dirChange;
@@ -32,6 +33,7 @@ public class Enemy : MonoBehaviour
     {
         _enemyCollider = GetComponent<PolygonCollider2D>();
         _enemyShield = gameObject.GetComponentInChildren<EnemyShieldBehaviour>();
+        _enemyWeaponBackFire = gameObject.GetComponentInChildren<EnemyWeaponBackFire>();
 
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
             if(_spriteRenderer is null)
@@ -99,11 +101,19 @@ public class Enemy : MonoBehaviour
             if (transform.position.x < -8.5f)
         {
             transform.position = new Vector3(-8.5f, transform.position.y, 0f);
+            transform.rotation = Quaternion.identity;
         }
 
         if (transform.position.x > 9.0f)
         {
             transform.position = new Vector3(9.0f, transform.position.y, 0f);
+            transform.rotation = Quaternion.identity;
+        }
+
+        if (_player.transform.position.x > transform.position.x - 0.2 && _player.transform.position.x < transform.position.x + 0.2 && transform.position.y < _player.transform.position.y - 1.0f && _enemyWeaponActive is true)
+        {
+            _enemyWeaponBackFire.ActivateEnemyTurret();
+            _enemyWeaponActive = false;
         }
     }
 
@@ -244,6 +254,11 @@ public class Enemy : MonoBehaviour
     {
         _enemyRam = false;
         _speed = 2;
+    }
+
+    public void ActivateBackTurret()
+    {
+        _enemyWeaponActive = true;
     }
 }
 

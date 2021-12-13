@@ -15,7 +15,7 @@ public class SpawnManager : MonoBehaviour
     private Enemy _newEnemy;
     
     [SerializeField]
-    private int _enemiesSpawned, _wave, _enemyShielded, _rammingEnemy, _enemiesSpawnd;
+    private int _enemiesSpawned, _wave, _enemyShielded, _rammingEnemy, _enemiesSpawnd, _fireBackwardEnemy;
     
     private bool _stopSpawning = false;
 
@@ -147,6 +147,7 @@ public class SpawnManager : MonoBehaviour
         _enemiesSpawned = 0;
         _enemiesSpawnd = 0;
         _rammingEnemy = Random.Range(2, 5);
+        _fireBackwardEnemy = Random.Range(2, 5);
     }
 
     private void Movement()
@@ -188,6 +189,12 @@ public class SpawnManager : MonoBehaviour
             _newEnemy.ActivateRam();
             _rammingEnemy += Random.Range(2, 5);
         }
+
+        if(_enemiesSpawned == _fireBackwardEnemy)
+        {
+            _newEnemy.ActivateBackTurret();
+            _rammingEnemy += Random.Range(2, 5);
+        }
     }
     
     public void EnemyShielded(int shielded)
@@ -198,5 +205,10 @@ public class SpawnManager : MonoBehaviour
     public void RammingEnemy(int ramming)
     {
         _rammingEnemy = ramming;
+    }
+
+    public void BackFiringEnemy(int backfire)
+    {
+        _fireBackwardEnemy = backfire;
     }
 }

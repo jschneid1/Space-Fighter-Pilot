@@ -13,7 +13,7 @@ public class WaveManager : MonoBehaviour
     private bool _playerAlive = true;
     
     [SerializeField]
-    private int _enemiesSpawned, _coRoutineUse, _wave, _enemiesAlive, _enemyShielded, _rammingEnemy, _enemiesSpawnd;
+    private int _enemiesSpawned, _coRoutineUse, _wave, _enemiesAlive, _enemyShielded, _rammingEnemy;
         
     [SerializeField]
     private SpriteRenderer[] _enemyArray;
@@ -50,6 +50,7 @@ public class WaveManager : MonoBehaviour
         _spawnManager.Wave(_wave);
         _spawnManager.EnemyShielded(_enemyShielded);
         _spawnManager.RammingEnemy(_rammingEnemy);
+        _spawnManager.BackFiringEnemy(1);
     }
 
     // Update is called once per frame
@@ -101,13 +102,11 @@ public class WaveManager : MonoBehaviour
     public void EnemiesSpawned()
     {
         _enemiesSpawned += 1;
-        _enemiesSpawnd += 1;
     }
 
     private void StartWave()
     {
         _enemiesSpawned = 0;
-        _enemiesSpawnd = 0;
         _spawnManager.Wave(_wave);
         _spawnManager.EnemiesSpawned();
         _spawnManager.StartSpawning();
