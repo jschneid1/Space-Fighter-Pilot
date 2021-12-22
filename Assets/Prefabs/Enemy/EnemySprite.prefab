@@ -355,6 +355,8 @@ MonoBehaviour:
     type: 3}
   _enemyLaser: {fileID: 683772619663975716, guid: ef0a5e90d2fbb40429cc7ca60184052a,
     type: 3}
+  _altEnemyLaser: {fileID: 1730742021308994104, guid: 51c1f4af50dede24fb4c8e746f89feb7,
+    type: 3}
   _enemyCollider: {fileID: -7753330988690301851}
   _speed: 2
   _playerDistance: 0
@@ -365,6 +367,7 @@ MonoBehaviour:
   _enemyRamActive: 0
   _enemyRam: 0
   _enemyWeaponActive: 0
+  _powerUpDestroyActive: 1
   _dirChange: 0
 --- !u!1001 &1067687756824338749
 PrefabInstance:

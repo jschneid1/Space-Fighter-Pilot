@@ -5,6 +5,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private Player _player;
+    private EnemyLaser _enemyLaserBehavior;
+    private Transform _powerup = null;
     private EnemyShieldBehaviour _enemyShield;
     private EnemyWeaponBackFire _enemyWeaponBackFire;
     [SerializeField]
@@ -17,13 +19,15 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private GameObject _enemyLaser;
     [SerializeField]
+    private GameObject _altEnemyLaser;
+    [SerializeField]
     private Collider2D _enemyCollider;
 
     [SerializeField]
     private float _speed = 2.0f, _playerDistance, _ramSpeed = 2.0f;
 
     [SerializeField]
-    private bool _altMovement = false, _altEnemy = false, _enemyShieldActive, _enemyRamActive, _enemyRam, _enemyWeaponActive;
+    private bool _altMovement = false, _altEnemy = false, _enemyShieldActive, _enemyRamActive, _enemyRam, _enemyWeaponActive, _powerUpDestroyActive;
     
     [SerializeField]
     private int _dirChange;
@@ -55,7 +59,10 @@ public class Enemy : MonoBehaviour
         
     {
         _playerDistance = Vector2.Distance(_player.transform.position, this.transform.position);
-        EnemyMovement();
+
+        _powerup = GetPowerUp();
+        
+         EnemyMovement();
     }
 
     private void EnemyMovement()
@@ -115,6 +122,17 @@ public class Enemy : MonoBehaviour
             _enemyWeaponBackFire.ActivateEnemyTurret();
             _enemyWeaponActive = false;
         }
+
+        if(_powerup != null && _powerUpDestroyActive is true && _powerup.transform.position.y < 2.0f)
+        {
+            {
+                Instantiate(_altEnemyLaser, transform.position, transform.rotation);
+                _powerUpDestroyActive = false;
+                /*_enemyLaserBehavior = GameObject.FindGameObjectWithTag("Enemy_Weapon").GetComponent<EnemyLaser>();
+                _enemyLaserBehavior.ChangeLaserTag();*/
+            }
+        }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -259,6 +277,30 @@ public class Enemy : MonoBehaviour
     public void ActivateBackTurret()
     {
         _enemyWeaponActive = true;
+    }
+
+    private Transform GetPowerUp()
+    {
+        GameObject[] powerups;
+        GameObject _bestTarget = null;
+        powerups = GameObject.FindGameObjectsWithTag("Power_Up");
+        foreach (GameObject potentialTarget in powerups)
+        {
+                if (potentialTarget.transform.position.x > transform.position.x - 0.2 && potentialTarget.transform.position.x < transform.position.x + 0.2 && transform.position.y > potentialTarget.transform.position.y + 1.0f)
+                {
+                    _bestTarget = potentialTarget;
+                }
+                
+        }
+            if (_bestTarget != null)
+                {
+                    return _bestTarget.transform;
+                }
+        
+            else
+                {
+                     return null;
+                }
     }
 }
 

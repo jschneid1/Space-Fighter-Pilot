@@ -10,9 +10,8 @@ public class EnemyLaser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        transform.Translate(Vector3.down * _enemyLaserSpeed * Time.deltaTime);
-
+            transform.Translate(Vector3.down * _enemyLaserSpeed * Time.deltaTime);
+        
         if (transform.position.y < -5.5f)
         {
             if (transform.parent == true)
@@ -21,5 +20,10 @@ public class EnemyLaser : MonoBehaviour
             }
             Destroy(this.gameObject);
         }
+    }
+
+    public void ChangeLaserTag()
+    {
+        gameObject.tag = "Power_Up_Destroy";
     }
 }

@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyLaserSpeed: 6
+  _destroyPowerUp: 0
 --- !u!61 &-8145791576751193462
 BoxCollider2D:
   m_ObjectHideFlags: 0

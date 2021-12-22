@@ -10,6 +10,8 @@ TagManager:
   - Enemy_Weapon
   - Enemy_Shield
   - Enemy_Ram
+  - Power_Up
+  - Power_Up_Destroy
   layers:
   - Default
   - TransparentFX
