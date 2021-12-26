@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Powerup : MonoBehaviour
 {
-
-    [SerializeField] //0 = triple shot, 1 = speed, 2 = shield
+    private Player _player;
+    [SerializeField]
     private int powerupID, _powerUpRotSpeed;
     [SerializeField]
     private float _powerUpSpeed = 2.5f;
@@ -19,13 +19,24 @@ public class Powerup : MonoBehaviour
         {
             Debug.LogError("There is no Powerup sound source");
         }
+
+        _player = GameObject.Find("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
     void Update()
         
     {
-        transform.Translate(Vector3.down * _powerUpSpeed * Time.deltaTime, Space.World);
+        if(Input.GetKey(KeyCode.C) && Vector2.Distance(transform.position, _player.transform.position) < 6)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, _player.transform.position, _powerUpSpeed * 1.5f * Time.deltaTime);
+        }
+
+        else
+        {
+            transform.Translate(Vector3.down * _powerUpSpeed * Time.deltaTime, Space.World);
+        }
+        
         transform.Rotate(Vector3.forward * -_powerUpRotSpeed * Time.deltaTime);
         if (transform.position.y < -5.6f)
         {
@@ -38,7 +49,6 @@ public class Powerup : MonoBehaviour
         if (other.tag is "Player")
         {
                 Player player = other.transform.GetComponent<Player>();
-                if(player != null)
 
                 switch(powerupID)
                     {
@@ -70,6 +80,12 @@ public class Powerup : MonoBehaviour
                 _powerUp.Play();
 
                 Destroy(this.gameObject);
+        }
+
+        else if (other.tag is "Power_Up_Destroy")
+        {
+            Destroy(other.gameObject);
+            Destroy(this.gameObject);
         }
     }
 }
