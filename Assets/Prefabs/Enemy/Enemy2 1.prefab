@@ -234,17 +234,23 @@ MonoBehaviour:
     type: 3}
   _enemyLaser: {fileID: 1730742021308994104, guid: 51c1f4af50dede24fb4c8e746f89feb7,
     type: 3}
+  _altEnemyLaser: {fileID: 0}
   _enemyCollider: {fileID: 7054136777426760527}
   _speed: 2
   _playerDistance: 0
   _ramSpeed: 2
+  _dodgeSpeed: 0.75
   _altMovement: 0
   _altEnemy: 1
   _enemyShieldActive: 0
   _enemyRamActive: 0
   _enemyRam: 0
   _enemyWeaponActive: 0
+  _powerUpDestroyActive: 0
+  _dodgeAbility: 0
+  _enemyDodgeMovement: 0
   _dirChange: 0
+  _dodgeDirection: 0
 --- !u!1001 &5467076191016701603
 PrefabInstance:
   m_ObjectHideFlags: 0

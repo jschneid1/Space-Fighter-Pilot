@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour
 {
     private Player _player;
     private EnemyLaser _enemyLaserBehavior;
-    private Transform _powerup = null;
+    private Transform _powerup = null, _laserToDodge = null;
     private EnemyShieldBehaviour _enemyShield;
     private EnemyWeaponBackFire _enemyWeaponBackFire;
     [SerializeField]
@@ -24,13 +24,13 @@ public class Enemy : MonoBehaviour
     private Collider2D _enemyCollider;
 
     [SerializeField]
-    private float _speed = 2.0f, _playerDistance, _ramSpeed = 2.0f;
+    private float _speed = 2.0f, _playerDistance, _ramSpeed = 2.0f, _dodgeSpeed = 1.5f;
 
     [SerializeField]
-    private bool _altMovement = false, _altEnemy = false, _enemyShieldActive, _enemyRamActive, _enemyRam, _enemyWeaponActive, _powerUpDestroyActive;
+    private bool _altMovement = false, _altEnemy = false, _enemyShieldActive, _enemyRamActive, _enemyRam, _enemyWeaponActive, _powerUpDestroyActive, _dodgeAbility = false;
     
     [SerializeField]
-    private int _dirChange;
+    private int _dirChange, _dodgeDirection;
     
     // Start is called before the first frame update
     void Start()
@@ -61,6 +61,8 @@ public class Enemy : MonoBehaviour
         _playerDistance = Vector2.Distance(_player.transform.position, this.transform.position);
 
         _powerup = GetPowerUp();
+
+        _laserToDodge = GetLaserToDodge();
         
          EnemyMovement();
     }
@@ -128,62 +130,74 @@ public class Enemy : MonoBehaviour
             {
                 Instantiate(_altEnemyLaser, transform.position, transform.rotation);
                 _powerUpDestroyActive = false;
-                /*_enemyLaserBehavior = GameObject.FindGameObjectWithTag("Enemy_Weapon").GetComponent<EnemyLaser>();
-                _enemyLaserBehavior.ChangeLaserTag();*/
             }
         }
-        
+
+        if(_laserToDodge != null  && _dodgeAbility is true && _altMovement is false)
+        {
+            if(_laserToDodge.position.x > transform.position.x - 0.64 && _laserToDodge.position.x <= transform.position.x)
+            {
+                _dodgeDirection = 1;;
+                DodgeMovement();
+            }
+
+            else if(_laserToDodge.position.x < transform.position.x + 0.64  && _laserToDodge.position.x >= transform.position.x)
+            {
+                _dodgeDirection = -1;
+                DodgeMovement();
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (_enemyShieldActive is true)
-        {
-            if (other.tag is "Player")
+            if (_enemyShieldActive is true)
             {
-                _player.Damage();
-                DeactivateShield();
-            }
-
-            else if (other.tag is "Laser")
-            {
-                Destroy(other.gameObject);
-                DeactivateShield();
-            }
-
-            else if (other.tag is "Shield")
-            {
-                DeactivateShield();
-            }
-        }
-
-        else
-        {
-            if (other.tag is "Player")
-            {
-                _player.Damage();
-                Explosion();
-            }
-
-            else if (other.tag is "Laser")
-            {
-                Destroy(other.gameObject);
-                if (_player is null)
+                if (other.tag is "Player")
                 {
-                    Debug.LogError("There is no Player component for score");
+                    _player.Damage();
+                    DeactivateShield();
                 }
-                if (_player != null)
+
+                else if (other.tag is "Laser")
                 {
-                    _player.Score(10);
+                    Destroy(other.gameObject);
+                    DeactivateShield();
                 }
-                Explosion();
+
+                else if (other.tag is "Shield")
+                {
+                    DeactivateShield();
+                }
             }
 
-            else if (other.tag is "Shield")
+            else
             {
-                Explosion();
+                if (other.tag is "Player")
+                {
+                    _player.Damage();
+                    Explosion();
+                }
+
+                else if (other.tag is "Laser")
+                {
+                    Destroy(other.gameObject);
+                    if (_player is null)
+                    {
+                        Debug.LogError("There is no Player component for score");
+                    }
+                    if (_player != null)
+                    {
+                        _player.Score(10);
+                    }
+                    Explosion();
+                }
+
+                else if (other.tag is "Shield")
+                {
+                    Explosion();
+                }
             }
-        }
     }
 
     IEnumerator FireDualLaser()
@@ -301,6 +315,38 @@ public class Enemy : MonoBehaviour
                 {
                      return null;
                 }
+    }
+
+    private Transform GetLaserToDodge()
+    {
+        GameObject[] lasers;
+        GameObject _bestTarget = null;
+        lasers = GameObject.FindGameObjectsWithTag("Laser");
+        foreach (GameObject potentialTarget in lasers)
+        {
+            if (potentialTarget.transform.position.x > transform.position.x - 0.64 && potentialTarget.transform.position.x < transform.position.x + 0.64 && transform.position.y - potentialTarget.transform.position.y < 5.0f)
+            {
+                _bestTarget = potentialTarget;
+            }
+
+        }
+        if (_bestTarget != null)
+        {
+            return _bestTarget.transform;
+        }
+
+        else
+        {
+            return null;
+        }
+    }
+
+    private void DodgeMovement()
+    {
+            float horMovement = _dodgeDirection * _dodgeSpeed;
+            float verMovement = -_speed;
+            Vector3 direction = new Vector3(horMovement, verMovement, 0);
+            transform.Translate(direction * Time.deltaTime);
     }
 }
 

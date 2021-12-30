@@ -361,6 +361,7 @@ MonoBehaviour:
   _speed: 2
   _playerDistance: 0
   _ramSpeed: 2
+  _dodgeSpeed: 1.5
   _altMovement: 0
   _altEnemy: 0
   _enemyShieldActive: 0
@@ -368,7 +369,9 @@ MonoBehaviour:
   _enemyRam: 0
   _enemyWeaponActive: 0
   _powerUpDestroyActive: 1
+  _dodgeAbility: 0
   _dirChange: 0
+  _dodgeDirection: 0
 --- !u!1001 &1067687756824338749
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -439,6 +442,11 @@ PrefabInstance:
     - target: {fileID: 7053716898563138175, guid: e86dbd131747ddb4ebb523e57d0ee31b,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8513833919334999862, guid: e86dbd131747ddb4ebb523e57d0ee31b,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8513833919334999862, guid: e86dbd131747ddb4ebb523e57d0ee31b,
