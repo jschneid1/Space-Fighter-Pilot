@@ -49,7 +49,7 @@ public class ShieldBehaviour : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag is"Enemy" | other.tag is "Enemy_Weapon" | other.tag is "Enemy_Shield")
+        if (other.tag is"Enemy" | other.tag is "Enemy_Weapon" | other.tag is "Enemy_Shield" | other.tag is "Boss_Enemy")
         {
             if (_shieldHits == 3)
                 {

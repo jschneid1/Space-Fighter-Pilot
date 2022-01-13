@@ -10,10 +10,10 @@ public class WaveManager : MonoBehaviour
     private EnemyShieldBehaviour _enemy;
 
     [SerializeField]
-    private bool _playerAlive = true;
+    private bool _playerAlive = true, _bossSpawned = false;
     
     [SerializeField]
-    private int _enemiesSpawned, _coRoutineUse, _wave, _enemiesAlive, _enemyShielded, _rammingEnemy;
+    private int _enemiesSpawned, _coRoutineUse, _wave, _enemiesAlive, _enemyShielded, _rammingEnemy, _bossAlive;
         
     [SerializeField]
     private SpriteRenderer[] _enemyArray;
@@ -45,12 +45,7 @@ public class WaveManager : MonoBehaviour
         }
 
         _wave = 1;
-        _rammingEnemy = Random.Range(2, 5);
-        _enemyShielded = Random.Range(2, 3);
         _spawnManager.Wave(_wave);
-        _spawnManager.EnemyShielded(_enemyShielded);
-        _spawnManager.RammingEnemy(_rammingEnemy);
-        _spawnManager.BackFiringEnemy(1);
     }
 
     // Update is called once per frame
@@ -59,30 +54,61 @@ public class WaveManager : MonoBehaviour
         _enemyArray = GameObject.Find("SpawnManager").GetComponentsInChildren<SpriteRenderer>();
         _enemiesAlive = _enemyArray.Length;
 
-        if(_playerAlive is true)
-        { 
+        if (_playerAlive is true)
+        {
 
             if (_enemiesSpawned == 5 && _wave == 1)
-                {
-                 _spawnManager.StopEnemySpawn();
-                    if (_enemiesAlive  == 0 && _coRoutineUse == 0)
-                    {
-                        _uiManager.WaveOverSequence();
-                        _spawnManager.StopPowerUpSpawn();
-                        _coRoutineUse += 1;
-                    }
-                }
-
-            if(_enemiesSpawned == 10 && _wave == 2)
-                {
+            {
                 _spawnManager.StopEnemySpawn();
-                    if (_enemiesAlive == 0 && _coRoutineUse == 1)
-                        {
-                         _uiManager.WaveOverSequence();
-                        _spawnManager.StopPowerUpSpawn();
-                        _coRoutineUse += 1;
-                        }
+                if (_enemiesAlive == 0 && _coRoutineUse == 0)
+                {
+                    _uiManager.WaveOverSequence();
+                    _spawnManager.StopPowerUpSpawn();
+                    _coRoutineUse += 1;
                 }
+            }
+
+            if (_enemiesSpawned == 10 && _wave == 2)
+            {
+                _spawnManager.StopEnemySpawn();
+                if (_enemiesAlive == 0 && _coRoutineUse == 1)
+                {
+                    _uiManager.WaveOverSequence();
+                    _spawnManager.StopPowerUpSpawn();
+                    _coRoutineUse += 1;
+                }
+            }
+
+            if (_enemiesSpawned == 15 && _wave == 3)
+            {
+                _spawnManager.StopEnemySpawn();
+                _spawnManager.StopAltEnemySpawn();
+                if (_enemiesAlive == 0 && _coRoutineUse == 2)
+                {
+                    _uiManager.WaveOverSequence();
+                    _spawnManager.StopPowerUpSpawn();
+                    _coRoutineUse += 1;
+                }
+            }
+
+            if (_enemiesSpawned == 15 && _wave == 4 && _bossSpawned is false)
+            {
+                _spawnManager.BossEnemySpawn();
+                _bossSpawned = true;
+            }
+
+            else if (_enemiesSpawned == 17 && _wave == 4)
+            {
+                _spawnManager.StopEnemySpawn();
+                _spawnManager.StopAltEnemySpawn();
+                if (_enemiesAlive == 0 && _coRoutineUse == 3 && _bossAlive == 0)
+                {
+                    _uiManager.WaveOverSequence();
+                    _spawnManager.StopPowerUpSpawn();
+                    _coRoutineUse += 1;
+                    _gameManager.GameOver();
+                }
+            }
         }
     }
 
@@ -96,7 +122,12 @@ public class WaveManager : MonoBehaviour
     {
         _wave = 3;
         StartWave();
-        _spawnManager.StartAltEnemySpawn();
+    }
+
+    public void StartBossWave()
+    {
+        _wave = 4;
+        StartWave();
     }
 
     public void EnemiesSpawned()
@@ -115,7 +146,7 @@ public class WaveManager : MonoBehaviour
         _gameManager.WaveLevel();
         _uiManager.WaveLevel();
     }
-
+    
     public void PlayerDead()
     {
         _playerAlive = false;

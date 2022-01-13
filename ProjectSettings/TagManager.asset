@@ -12,6 +12,7 @@ TagManager:
   - Enemy_Ram
   - Power_Up
   - Power_Up_Destroy
+  - Boss_Enemy
   layers:
   - Default
   - TransparentFX

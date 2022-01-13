@@ -8,11 +8,17 @@ public class EnemyTurretBehaviour : MonoBehaviour
     private GameObject _player;
     [SerializeField]
     private GameObject _laser;
-    //private MissileBehaviour _missileBehaviour;
 
     // Start is called before the first frame update
     void Start()
     {
+        if(gameObject.tag == "Boss_Enemy")
+        {
+            StartCoroutine(FireBossProjectile());
+        }
+
+        else
+
         StartCoroutine(FireLaser());
     }
 
@@ -36,6 +42,15 @@ public class EnemyTurretBehaviour : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(2, 4));
+            Instantiate(_laser, transform.position, transform.rotation);
+        }
+    }
+
+    IEnumerator FireBossProjectile()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.75f);
             Instantiate(_laser, transform.position, transform.rotation);
         }
     }

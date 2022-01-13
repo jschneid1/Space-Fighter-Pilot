@@ -6,7 +6,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _enemy1Prefab, _enemyAltPrefab;
+    private GameObject _enemy1Prefab, _enemyAltPrefab, _bossEnemyPrefab;
     [SerializeField]
     private GameObject _enemyContainer;
     [SerializeField]
@@ -15,7 +15,7 @@ public class SpawnManager : MonoBehaviour
     private Enemy _newEnemy;
     
     [SerializeField]
-    private int _enemiesSpawned, _wave, _enemyShielded, _rammingEnemy, _enemiesSpawnd, _fireBackwardEnemy;
+    private int _enemiesSpawned, _wave, _enemyShielded, _rammingEnemy,_fireBackwardEnemy, _dodgeEnemy, _powerUpDestroy;
     
     private bool _stopSpawning = false;
 
@@ -51,7 +51,6 @@ public class SpawnManager : MonoBehaviour
             GameObject newEnemy = Instantiate(_enemy1Prefab, posToSpawn, Quaternion.identity);
             newEnemy.transform.parent = _enemyContainer.transform;
             _enemiesSpawned += 1;
-            _enemiesSpawnd += 1;
             _newEnemy = newEnemy.GetComponentInChildren<Enemy>();
             yield return _newEnemy;
             Movement();
@@ -124,6 +123,11 @@ public class SpawnManager : MonoBehaviour
         StopCoroutine(_enemySpawnRoutine);
     }
 
+    public void StopAltEnemySpawn()
+    {
+        StopCoroutine(_altEnemySpawnRoutine);
+    }
+
     public void StopPowerUpSpawn()
     {
         StopCoroutine(_spawnAmmoRoutine);
@@ -145,9 +149,10 @@ public class SpawnManager : MonoBehaviour
     public void EnemiesSpawned()
     {
         _enemiesSpawned = 0;
-        _enemiesSpawnd = 0;
-        _rammingEnemy = Random.Range(2, 5);
+        _rammingEnemy = Random.Range(1, 4);
         _fireBackwardEnemy = Random.Range(2, 5);
+        _dodgeEnemy = Random.Range(2, 5);
+        _powerUpDestroy = Random.Range(2, 5);
     }
 
     private void Movement()
@@ -170,45 +175,50 @@ public class SpawnManager : MonoBehaviour
             }
         }
 
-        if (_wave > 2)
+        else if (_wave > 2)
         {
             {
                 _newEnemy.AltMoveOne();
                 _ammoSpawnRate = 0.5f;
             }
+            if (_enemiesSpawned == 6)
+            {
+                StartAltEnemySpawn();
+            }
         }
 
-        if(_enemiesSpawned == _enemyShielded)
+        if(_enemiesSpawned == _enemyShielded && _wave > 1)
         {
             _newEnemy.EnemyShieldActivate();
             _enemyShielded += Random.Range(2, 5);
         }
 
-        if(_enemiesSpawnd == _rammingEnemy)
+        else if(_enemiesSpawned == _rammingEnemy && _wave > 2)
         {
             _newEnemy.ActivateRam();
             _rammingEnemy += Random.Range(2, 5);
         }
 
-        if(_enemiesSpawned == _fireBackwardEnemy)
+        else if (_enemiesSpawned == _fireBackwardEnemy && _wave > 2)
         {
             _newEnemy.ActivateBackTurret();
-            _rammingEnemy += Random.Range(2, 5);
+            _fireBackwardEnemy += Random.Range(2, 5);
+        }
+
+        else if (_enemiesSpawned == _dodgeEnemy && _wave > 2)
+        {
+            _newEnemy.ActivateDodgeAbility();
+        }
+
+        else if (_enemiesSpawned == _powerUpDestroy && _wave > 2)
+        {
+            _newEnemy.ActivatePowerUpDestroy();
         }
     }
-    
-    public void EnemyShielded(int shielded)
-    {
-        _enemyShielded = shielded;
-    }
 
-    public void RammingEnemy(int ramming)
+    public void BossEnemySpawn()
     {
-        _rammingEnemy = ramming;
-    }
-
-    public void BackFiringEnemy(int backfire)
-    {
-        _fireBackwardEnemy = backfire;
+        Vector3 posToSpawn = new Vector3((Random.Range(-8f, 8.5f)), 7.8f, 0f);
+        Instantiate(_bossEnemyPrefab, posToSpawn, Quaternion.identity);
     }
 }

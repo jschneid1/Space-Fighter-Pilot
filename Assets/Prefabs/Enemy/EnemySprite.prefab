@@ -355,7 +355,7 @@ MonoBehaviour:
     type: 3}
   _enemyLaser: {fileID: 683772619663975716, guid: ef0a5e90d2fbb40429cc7ca60184052a,
     type: 3}
-  _altEnemyLaser: {fileID: 1730742021308994104, guid: 51c1f4af50dede24fb4c8e746f89feb7,
+  _altEnemyLaser: {fileID: 4916628193154966932, guid: 6e93df292abd1454cb14acead08c5152,
     type: 3}
   _enemyCollider: {fileID: -7753330988690301851}
   _speed: 2
@@ -368,7 +368,7 @@ MonoBehaviour:
   _enemyRamActive: 0
   _enemyRam: 0
   _enemyWeaponActive: 0
-  _powerUpDestroyActive: 1
+  _powerUpDestroyActive: 0
   _dodgeAbility: 0
   _dirChange: 0
   _dodgeDirection: 0

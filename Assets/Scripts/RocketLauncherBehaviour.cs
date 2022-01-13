@@ -8,7 +8,6 @@ public class RocketLauncherBehaviour : MonoBehaviour
     private Transform _closestEnemy = null;
     [SerializeField]
     private GameObject _missile;
-    //private MissileBehaviour _missileBehaviour;
 
     // Start is called before the first frame update
     void Start()

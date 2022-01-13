@@ -12,7 +12,7 @@ public class EnemyLaser : MonoBehaviour
     {
             transform.Translate(Vector3.down * _enemyLaserSpeed * Time.deltaTime);
         
-        if (transform.position.y < -5.5f)
+        if (transform.position.y < -5.5f || transform.position.x < -8.5f || transform.position.x > 9.0f || transform.position.y > 6.5f)
         {
             if (transform.parent == true)
             {
@@ -20,10 +20,5 @@ public class EnemyLaser : MonoBehaviour
             }
             Destroy(this.gameObject);
         }
-    }
-
-    public void ChangeLaserTag()
-    {
-        gameObject.tag = "Power_Up_Destroy";
     }
 }

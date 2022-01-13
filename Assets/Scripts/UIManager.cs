@@ -136,7 +136,7 @@ public class UIManager : MonoBehaviour
     public IEnumerator MissileFire()
     {
         _fireMissileText.enabled = true;
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(3.0f);
         _fireMissileText.enabled = false;
     }
 
@@ -146,11 +146,13 @@ public class UIManager : MonoBehaviour
         _fireMissileText.text = "Press the 'Left Shift' to use Thrusters";
         yield return new WaitForSeconds(2.0f);
         _fireMissileText.enabled = false;
-        _fireMissileText.text = "Press 'Left Alt' to Fire Missile";
+        _fireMissileText.text = "Press 'Left Alt' to Fire Missile.   (1 per second for 5 seconds)";
     }
 
     IEnumerator WaveOver()
     {
+        
+        if (_wave < 4)
         {
             _levelOverText.enabled = true;
             _levelOverText.text = "Congratulations you have completed Wave " + _wave.ToString();
@@ -166,12 +168,28 @@ public class UIManager : MonoBehaviour
             _nextLevelText.text = "Do not expect this from now on.                 Press Enter to Start the next wave.";
         }
 
-        if (_wave == 2)
+        else if (_wave == 2)
         {
             _nextLevelText.enabled = true;
             _nextLevelText.text = "No way!!!  You got this far, I gave you less credit than you deserve. Well Done.";
             yield return new WaitForSeconds(7.0f);
             _nextLevelText.text = "As promised no refill or repair.                 Press Enter to Start the next wave.";
+        }
+
+        else if (_wave == 3)
+        {
+            _nextLevelText.enabled = true;
+            _nextLevelText.text = "Holy Hannah!!!  I was sure you wouldn't make it this far. Well Done.";
+            yield return new WaitForSeconds(7.0f);
+            _nextLevelText.text = "Still no refill or repair. Get ready for the Boss Wave.  Press Enter to Start the next wave.";
+        }
+
+        else if (_wave == 4)
+        {
+            _nextLevelText.enabled = true;
+            _nextLevelText.text = "CONGRATULATIONS!!!  Awesome job pilot, you have kept our galaxy safe. For now---.";
+            yield return new WaitForSeconds(7.0f);
+            _nextLevelText.text = "Press 'R' to Restart the Game.";
         }
     }
 

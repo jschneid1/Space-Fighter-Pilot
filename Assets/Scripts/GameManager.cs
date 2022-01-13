@@ -41,6 +41,11 @@ public class GameManager : MonoBehaviour
             {
                 _waveManager.StartWaveThree();
             }
+
+            else if (_wave == 3)
+            {
+                _waveManager.StartBossWave();
+            }
         }
     }
 

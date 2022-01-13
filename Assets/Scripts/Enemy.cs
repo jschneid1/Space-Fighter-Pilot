@@ -5,7 +5,6 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private Player _player;
-    private EnemyLaser _enemyLaserBehavior;
     private Transform _powerup = null, _laserToDodge = null;
     private EnemyShieldBehaviour _enemyShield;
     private EnemyWeaponBackFire _enemyWeaponBackFire;
@@ -133,7 +132,7 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        if(_laserToDodge != null  && _dodgeAbility is true && _altMovement is false)
+        if(_laserToDodge != null  && _dodgeAbility is true)
         {
             if(_laserToDodge.position.x > transform.position.x - 0.64 && _laserToDodge.position.x <= transform.position.x)
             {
@@ -291,6 +290,16 @@ public class Enemy : MonoBehaviour
     public void ActivateBackTurret()
     {
         _enemyWeaponActive = true;
+    }
+
+    public void ActivateDodgeAbility()
+    {
+        _dodgeAbility = true;
+    }
+
+    public void ActivatePowerUpDestroy()
+    {
+        _powerUpDestroyActive = true;
     }
 
     private Transform GetPowerUp()

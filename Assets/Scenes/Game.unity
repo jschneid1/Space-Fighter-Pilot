@@ -512,6 +512,8 @@ MonoBehaviour:
     type: 3}
   _enemyAltPrefab: {fileID: 7054136777426760496, guid: 652689bbab9721f44978b78fb1f57844,
     type: 3}
+  _bossEnemyPrefab: {fileID: 421308432854620988, guid: 3cb49838943c67242bb648f1ed846c54,
+    type: 3}
   _enemyContainer: {fileID: 1354612372}
   powerups:
   - {fileID: 3089700556567035122, guid: c9152b96ec24ec0498716867e541ae28, type: 3}
@@ -525,8 +527,9 @@ MonoBehaviour:
   _wave: 0
   _enemyShielded: 0
   _rammingEnemy: 0
-  _enemiesSpawnd: 0
   _fireBackwardEnemy: 0
+  _dodgeEnemy: 0
+  _powerUpDestroy: 0
   _ammoSpawnRate: 1
 --- !u!4 &238636774
 Transform:
@@ -1315,6 +1318,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5442207050560243401, guid: de2b7feef8c4342408a5bec4c34641ea,
         type: 3}
+      propertyPath: _missileActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5442207050560243401, guid: de2b7feef8c4342408a5bec4c34641ea,
+        type: 3}
       propertyPath: _thrusterActive
       value: 0
       objectReference: {fileID: 0}
@@ -1839,7 +1847,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 38.004272, y: -10.994904}
+  m_AnchoredPosition: {x: 38.004272, y: -10.994873}
   m_SizeDelta: {x: 236.71158, y: 143.70985}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1190960333
@@ -1909,12 +1917,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerAlive: 1
+  _bossSpawned: 0
   _enemiesSpawned: 0
   _coRoutineUse: 0
   _wave: 3
   _enemiesAlive: 0
   _enemyShielded: 0
   _rammingEnemy: 0
+  _bossAlive: 0
   _enemyArray: []
 --- !u!4 &1248204626
 Transform:
@@ -3087,8 +3097,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -0.000015259, y: 226}
-  m_SizeDelta: {x: 351.28647, y: 35.100967}
+  m_AnchoredPosition: {x: 16.81, y: 200.19}
+  m_SizeDelta: {x: 384.90897, y: 86.71584}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2145460575
 MonoBehaviour:
@@ -3119,10 +3129,10 @@ MonoBehaviour:
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Press 'Left Alt' to Fire Missile
+  m_Text: Press 'Left Alt' to Fire Missile.   (1 per second for 5 seconds)
 --- !u!222 &2145460576
 CanvasRenderer:
   m_ObjectHideFlags: 0
