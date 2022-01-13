@@ -153,6 +153,7 @@ public class SpawnManager : MonoBehaviour
         _fireBackwardEnemy = Random.Range(2, 5);
         _dodgeEnemy = Random.Range(2, 5);
         _powerUpDestroy = Random.Range(2, 5);
+        _enemyShielded = Random.Range(1, 4);
     }
 
     private void Movement()
