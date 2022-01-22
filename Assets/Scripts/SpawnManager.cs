@@ -44,7 +44,7 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnEnemyRoutine()
     {
-        while (_stopSpawning is false)
+        while (_stopSpawning == false)
         {
             yield return new WaitForSeconds(0.5f);
             Vector3 posToSpawn = new Vector3((Random.Range(-8f, 8.5f)), 5.6f, 0f);            
@@ -60,7 +60,7 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnAltEnemyRoutine()
     {
-        while (_stopSpawning is false)
+        while (_stopSpawning == false)
         {
             yield return new WaitForSeconds(Random.Range(5.0f, 11.0f));
             Vector3 posToSpawn = new Vector3((Random.Range(-8f, 8.5f)), 5.6f, 0f);
@@ -76,7 +76,7 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnAmmoRoutine()
     {
-        while (_stopSpawning is false)
+        while (_stopSpawning == false)
         {
             yield return new WaitForSeconds(_ammoSpawnRate * 10.0f);
             Vector3 posToSpawnPowerup = new Vector3((Random.Range(-8.2f, 8.8f)), 5.5f, 0f);
@@ -87,7 +87,7 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnPowerUpRoutine()
     {
-        while (_stopSpawning is false)
+        while (_stopSpawning == false)
         {
             yield return new WaitForSeconds(7.0f);
             Vector3 posToSpawnPowerup = new Vector3((Random.Range(-8.2f, 8.8f)), 5.5f, 0f);
@@ -99,7 +99,7 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnAltPowerUpRotine()
     {
-        while (_stopSpawning is false)
+        while (_stopSpawning == false)
         {
             yield return new WaitForSeconds(Random.Range(17.0f, 23.0f));
             Vector3 posToSpawnPowerup = new Vector3((Random.Range(-8.2f, 8.8f)), 5.5f, 0f);
@@ -110,7 +110,7 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnNegPowerUpRotine()
     {
-        while (_stopSpawning is false)
+        while (_stopSpawning == false)
         {
             yield return new WaitForSeconds(Random.Range(25.0f, 30.0f));
             Vector3 posToSpawnPowerup = new Vector3((Random.Range(-8.2f, 8.8f)), 5.5f, 0f);

@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour
         _enemyWeaponBackFire = gameObject.GetComponentInChildren<EnemyWeaponBackFire>();
 
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-            if(_spriteRenderer is null)
+            if(_spriteRenderer == null)
         {
             Debug.LogError("The Enemy Sprite Renderer is NULL");
         }
@@ -68,7 +68,7 @@ public class Enemy : MonoBehaviour
 
     private void EnemyMovement()
     {
-        if (_playerDistance < 5 && _enemyRamActive is true && transform.position.y > -1.05f)
+        if (_playerDistance < 5 && _enemyRamActive == true && transform.position.y > -1.05f)
         {
             _speed = 0;
             transform.up = transform.position - _player.transform.position;
@@ -76,12 +76,12 @@ public class Enemy : MonoBehaviour
             _enemyRamActive = false;
         }
 
-        if(_enemyRam is true)
+        if(_enemyRam == true)
         {
             transform.Translate(Vector3.down * (_ramSpeed * 2) * Time.deltaTime);
         }
 
-        if (_altMovement is true)
+        if (_altMovement == true)
             {
                 float horMovement = _speed * _dirChange;
                 float verMovement = -_speed;
@@ -100,7 +100,7 @@ public class Enemy : MonoBehaviour
             transform.position = new Vector3(randomX, 6.2f, 0f);
             }
 
-        if (transform.position.y < -5.65f && _enemyRam is true)
+        if (transform.position.y < -5.65f && _enemyRam == true)
         {
             transform.rotation = Quaternion.identity;
             EnemyRamFalse();
@@ -118,13 +118,13 @@ public class Enemy : MonoBehaviour
             transform.rotation = Quaternion.identity;
         }
 
-        if (_player.transform.position.x > transform.position.x - 0.2 && _player.transform.position.x < transform.position.x + 0.2 && transform.position.y < _player.transform.position.y - 1.0f && _enemyWeaponActive is true)
+        if (_player.transform.position.x > transform.position.x - 0.2 && _player.transform.position.x < transform.position.x + 0.2 && transform.position.y < _player.transform.position.y - 1.0f && _enemyWeaponActive == true)
         {
             _enemyWeaponBackFire.ActivateEnemyTurret();
             _enemyWeaponActive = false;
         }
 
-        if(_powerup != null && _powerUpDestroyActive is true && _powerup.transform.position.y < 2.0f)
+        if(_powerup != null && _powerUpDestroyActive == true && _powerup.transform.position.y < 2.0f)
         {
             {
                 Instantiate(_altEnemyLaser, transform.position, transform.rotation);
@@ -132,7 +132,7 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        if(_laserToDodge != null  && _dodgeAbility is true)
+        if(_laserToDodge != null  && _dodgeAbility == true)
         {
             if(_laserToDodge.position.x > transform.position.x - 0.64 && _laserToDodge.position.x <= transform.position.x)
             {
@@ -150,21 +150,21 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-            if (_enemyShieldActive is true)
+            if (_enemyShieldActive == true)
             {
-                if (other.tag is "Player")
+                if (other.CompareTag("Player"))
                 {
                     _player.Damage();
                     DeactivateShield();
                 }
 
-                else if (other.tag is "Laser")
+                else if (other.CompareTag("Laser"))
                 {
                     Destroy(other.gameObject);
                     DeactivateShield();
                 }
 
-                else if (other.tag is "Shield")
+                else if (other.CompareTag("Shield"))
                 {
                     DeactivateShield();
                 }
@@ -172,16 +172,16 @@ public class Enemy : MonoBehaviour
 
             else
             {
-                if (other.tag is "Player")
-                {
+                if (other.CompareTag("Player"))
+            {
                     _player.Damage();
                     Explosion();
                 }
 
-                else if (other.tag is "Laser")
-                {
+                else if (other.CompareTag("Laser"))
+            {
                     Destroy(other.gameObject);
-                    if (_player is null)
+                    if (_player == null)
                     {
                         Debug.LogError("There is no Player component for score");
                     }
@@ -192,8 +192,8 @@ public class Enemy : MonoBehaviour
                     Explosion();
                 }
 
-                else if (other.tag is "Shield")
-                {
+                else if (other.CompareTag("Shield"))
+            {
                     Explosion();
                 }
             }
@@ -204,7 +204,7 @@ public class Enemy : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(2, 4));
-            if(_altEnemy is true)
+            if(_altEnemy == true)
             {
                 Instantiate(_enemyLaser, transform.position, transform.rotation);
             }

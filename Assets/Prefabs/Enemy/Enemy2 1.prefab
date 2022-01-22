@@ -234,7 +234,8 @@ MonoBehaviour:
     type: 3}
   _enemyLaser: {fileID: 1730742021308994104, guid: 51c1f4af50dede24fb4c8e746f89feb7,
     type: 3}
-  _altEnemyLaser: {fileID: 0}
+  _altEnemyLaser: {fileID: 1730742021308994104, guid: 51c1f4af50dede24fb4c8e746f89feb7,
+    type: 3}
   _enemyCollider: {fileID: 7054136777426760527}
   _speed: 2
   _playerDistance: 0

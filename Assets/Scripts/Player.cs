@@ -73,26 +73,26 @@ public class Player : MonoBehaviour
         _cameraBehaviour = GameObject.Find("Main Camera").GetComponent<CameraBehaviour>();
         _waveManager = GameObject.Find("WaveManager").GetComponent<WaveManager>();
 
-        if (_cameraBehaviour is null)
+        if (_cameraBehaviour == null)
         {
             Debug.LogError("The Camera Behaviour Behaviour is NULL");
         }
 
-        if (_rocketLauncherBehaviour is null)
+        if (_rocketLauncherBehaviour == null)
         {
             Debug.LogError("The Rocket Launcher Behaviour is NULL");
         }
-        if (_shieldBehaviour is null)
+        if (_shieldBehaviour == null)
         {
             Debug.LogError("The Shield Behaviour is NULL");
         }
         
-        if (_spawnManager is null)
+        if (_spawnManager == null)
         {
             Debug.LogError("The Spawn Manager is NULL");
         }
 
-        if(_uiManager is null)
+        if(_uiManager == null)
         {
             Debug.LogError("The UI Manager is NULL");
         }
@@ -124,7 +124,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftAlt) && Time.time > _missileCanFire)
         {
             _missileCanFire = Time.time + _missleFireRate;
-            if (_missileActive is true)
+            if (_missileActive == true)
             {
                 _rocketLauncherBehaviour.FireMissile();
             }
@@ -140,17 +140,17 @@ public class Player : MonoBehaviour
 
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.9f, 4.1f), 0);
 
-        if(Input.GetKey(KeyCode.LeftShift) && _thrusterActive is true)
+        if(Input.GetKey(KeyCode.LeftShift) && _thrusterActive == true)
             {
                 transform.Translate(direction * _thrusterSpeed * Time.deltaTime);
             }
 
-        if (_boostActive is true)
+        if (_boostActive == true)
         {
             transform.Translate(direction * _boostSpeed * Time.deltaTime);
         }
 
-        if(_negMovement is true)
+        if(_negMovement == true)
         {
             transform.Translate(-direction * _speed * Time.deltaTime);
         }
@@ -174,7 +174,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag is "Enemy_Weapon" & _shieldActive is false)
+        if (other.CompareTag("Enemy_Weapon") & _shieldActive == false)
         {
             Destroy(other.gameObject);
             Damage();
@@ -183,7 +183,7 @@ public class Player : MonoBehaviour
 
     void fireLaser()
     {
-        if (_tripleShotActive is true)
+        if (_tripleShotActive == true)
         {
             Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
         }

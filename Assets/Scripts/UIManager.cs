@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour
         {
             Debug.LogError("SpawnManager is NULL");
         }
-        if (_gameManager is null)
+        if (_gameManager == null)
         {
             Debug.LogError("The Game Manager is NULL");
         }
@@ -172,6 +172,8 @@ public class UIManager : MonoBehaviour
         {
             _nextLevelText.enabled = true;
             _nextLevelText.text = "No way!!!  You got this far, I gave you less credit than you deserve. Well Done.";
+            yield return new WaitForSeconds(7.0f);
+            _nextLevelText.text = "You can press the 'C' key to have any powerups close enough, move to you.";
             yield return new WaitForSeconds(7.0f);
             _nextLevelText.text = "As promised no refill or repair.                 Press Enter to Start the next wave.";
         }

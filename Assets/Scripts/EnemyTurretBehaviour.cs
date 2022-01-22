@@ -12,7 +12,7 @@ public class EnemyTurretBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(gameObject.tag == "Boss_Enemy")
+        if(gameObject.CompareTag("Boss_Enemy"))
         {
             StartCoroutine(FireBossProjectile());
         }

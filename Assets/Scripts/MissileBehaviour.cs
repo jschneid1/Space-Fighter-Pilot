@@ -13,7 +13,7 @@ public class MissileBehaviour : MonoBehaviour
     void Start()
     {
          _rocketLauncherBehaviour = GameObject.Find("RocketLauncher").GetComponent<RocketLauncherBehaviour>();
-         if(_rocketLauncherBehaviour is null)
+         if(_rocketLauncherBehaviour == null)
              {
              Debug.LogError("There is no Rocket Launcher Behaviour");
              }

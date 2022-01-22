@@ -47,20 +47,20 @@ public class BossEnemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag is "Laser")
+        if (other.CompareTag("Laser"))
         {
             Destroy(other.gameObject);
             _player.Score(20);
             Damage();
         }
 
-        else if (other.tag is "Player")
+        else if (other.CompareTag("Player"))
         {
             _player.Damage();
             Damage();
         }
 
-        else if (other.tag is "Shield")
+        else if (other.CompareTag("Shield"))
         {
             Damage();
         }

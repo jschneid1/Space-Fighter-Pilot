@@ -35,7 +35,7 @@ public class ThrusterBar : MonoBehaviour
         _player = GameObject.Find("Player").GetComponent<Player>();
         _thrusterChargingText.enabled = false;
 
-        if (_thrusterBarSlider is null)
+        if (_thrusterBarSlider == null)
         {
             Debug.LogError("There is no Thruster Bar component attached");
         }
@@ -49,7 +49,7 @@ public class ThrusterBar : MonoBehaviour
 
     private void ThrusterBarActive()
     {
-        if (Input.GetKey(KeyCode.LeftShift) && _thrusterBarActive is true)
+        if (Input.GetKey(KeyCode.LeftShift) && _thrusterBarActive == true)
         {
             _thruster -= Time.deltaTime;
             _thrusterBarSlider.value = _thruster;
@@ -65,7 +65,7 @@ public class ThrusterBar : MonoBehaviour
 
     private void ThrusterFill()
     {
-        if (Input.GetKey(KeyCode.LeftShift) is false)
+        if (Input.GetKey(KeyCode.LeftShift) == false)
         {
             _thruster += Time.deltaTime * _thrusterFillRate;
             _thrusterBarSlider.value = _thruster;
@@ -74,7 +74,7 @@ public class ThrusterBar : MonoBehaviour
 
     private void Thruster()
     {
-        if (_thrusterBarActive is true)
+        if (_thrusterBarActive == true)
         {
             ThrusterBarActive();
         }
@@ -83,7 +83,7 @@ public class ThrusterBar : MonoBehaviour
             ThrusterFill();
         }
 
-        if (Input.GetKey(KeyCode.LeftShift) is false && _thruster < 5)
+        if (Input.GetKey(KeyCode.LeftShift) == false && _thruster < 5)
         {
             ThrusterFill();
         }
@@ -100,7 +100,7 @@ public class ThrusterBar : MonoBehaviour
             _thrusterChargingText.enabled = false;
         }
 
-        if (_player is null)
+        if (_player == null)
         {
             _thrusterBarSlider.enabled = false;
         }

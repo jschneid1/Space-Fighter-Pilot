@@ -51,7 +51,7 @@ public class Asteroid : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag is "Laser")
+        if (other.tag == "Laser")
         {
             Destroy(other.gameObject);
             Instantiate(_explosionPrefab, this.transform.position, Quaternion.identity);
@@ -59,7 +59,7 @@ public class Asteroid : MonoBehaviour
             StartCoroutine(LoadGameScene());
         }
 
-       else if (other.tag is "Player")
+       else if (other.tag == "Player")
         {
             Instantiate(_explosionPrefab, other.transform.position, Quaternion.identity);
             StartCoroutine(ExplosionTime());

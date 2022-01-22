@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-       if(Input.GetKeyDown(KeyCode.R) && _isGameOver is true)
+       if(Input.GetKeyDown(KeyCode.R) && _isGameOver == true)
         {
             SceneManager.LoadScene(2); //Start Game Scene
         }
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
             Application.Quit();
         }
 
-        if(Input.GetKeyDown(KeyCode.Return) && _waveFinished is true)
+        if(Input.GetKeyDown(KeyCode.Return) && _waveFinished == true)
         {
             if(_wave == 1)
             {

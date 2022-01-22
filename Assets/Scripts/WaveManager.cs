@@ -30,11 +30,11 @@ public class WaveManager : MonoBehaviour
         {
             Debug.LogError("SpawnManager is NULL");
         }
-        if (_uiManager is null)
+        if (_uiManager == null)
         {
             Debug.LogError("The UI Manager is NULL");
         }
-        if (_gameManager is null)
+        if (_gameManager == null)
         {
             Debug.LogError("The Game Manager is NULL");
         }
@@ -54,7 +54,7 @@ public class WaveManager : MonoBehaviour
         _enemyArray = GameObject.Find("SpawnManager").GetComponentsInChildren<SpriteRenderer>();
         _enemiesAlive = _enemyArray.Length;
 
-        if (_playerAlive is true)
+        if (_playerAlive == true)
         {
 
             if (_enemiesSpawned == 5 && _wave == 1)
@@ -91,7 +91,7 @@ public class WaveManager : MonoBehaviour
                 }
             }
 
-            if (_enemiesSpawned == 15 && _wave == 4 && _bossSpawned is false)
+            if (_enemiesSpawned == 15 && _wave == 4 && _bossSpawned == false)
             {
                 _spawnManager.BossEnemySpawn();
                 _bossSpawned = true;
